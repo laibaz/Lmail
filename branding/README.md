@@ -21,4 +21,16 @@ Brand red: `#D61D38` · Text black: `#0D0D0D`
 - Favicon → `/var/www/html/docroot/favicon.ico`
 - Theme → `lmail.css` must be loaded on every Mautic page (it expects `lmail-logo.png` and `lmail-mascot.png` in `/media/images/`)
 
-TODO: document exactly how the CSS was loaded into Mautic on the laptop build, so the rebrand can be reapplied on a fresh install.
+## How it's applied
+
+On the original laptop build the theme CSS was appended to the end of
+Mautic's compiled stylesheet, `/var/www/html/docroot/media/css/app.css`.
+Mautic can regenerate that file on updates, so the rebrand is re-applied with:
+
+```bash
+./scripts/apply-branding.sh
+```
+
+It copies the images and favicon in, and (re)writes the LMAIL block at the
+end of `app.css` between `LMAIL BRANDING START/END` markers, so it is safe to
+run repeatedly.
