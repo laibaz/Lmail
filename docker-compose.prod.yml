@@ -1,0 +1,24 @@
+# Production overrides: HTTPS via Caddy (automatic Let's Encrypt certificates).
+# Mautic is no longer exposed directly — only Caddy listens on ports 80/443.
+services:
+  mautic:
+    ports: !reset []
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      LMAIL_DOMAIN: ${LMAIL_DOMAIN}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - mautic
+
+volumes:
+  caddy_data:
+  caddy_config:

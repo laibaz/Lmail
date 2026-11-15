@@ -1,0 +1,4 @@
+{$LMAIL_DOMAIN} {
+	encode gzip
+	reverse_proxy mautic:80
+}
