@@ -382,26 +382,96 @@ body .btn.lmail-ai-open:hover{filter:brightness(1.06)}
 /* ---- email type picker: headings were white on white ---- */
 body .modal .panel-heading, body .modal .panel-heading *, body .modal .panel-title{color:var(--lm-ink) !important}
 
-/* ---- login: brand panel on the left, form on the right ---- */
+/* ---- login: form on the left, dark product panel on the right ---- */
 section#main[role=main]{min-height:100vh;background:#fff}
+/* right panel: background and headline */
 section#main[role=main]::before{
-  content:"Email that sounds like you.";
-  position:fixed;left:0;top:0;bottom:0;width:46%;padding:0 6%;box-sizing:border-box;
-  display:flex;align-items:center;
-  background:var(--lm-brand);color:#fff;font-size:44px;font-weight:700;line-height:1.08;letter-spacing:-.02em;
+  content:"Email marketing that writes with you";
+  position:fixed;right:0;top:0;bottom:0;width:54%;box-sizing:border-box;padding:16vh 3.24vw 0;
+  background:var(--lm-ink);color:#fff;font-size:clamp(30px,3.6vw,54px);font-weight:400;line-height:1.08;letter-spacing:-.02em;
 }
+/* right panel: small label above the headline */
+section#main[role=main] > .container::after{
+  content:"LMAIL AI WRITER";
+  position:fixed;left:calc(46% + 54% * .06);top:10vh;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.18em;color:var(--lm-pink);
+}
+/* right panel: real product screenshot, gently floating */
+section#main[role=main]::after{
+  content:"";position:fixed;right:calc(54% * .06);bottom:7vh;width:calc(54% * .88);aspect-ratio:16/10;max-height:50vh;
+  background:url('/media/images/lmail-app-preview.webp') no-repeat center bottom / contain;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.45));
+  animation:lmail-float 7s ease-in-out infinite;
+}
+@keyframes lmail-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes lmail-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* left: the form */
 section#main[role=main] > .container{
-  margin:0 0 0 46% !important;width:54%;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  margin:0 !important;width:46%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:0 24px;
 }
-section#main[role=main] > .container > .row{width:100%;max-width:400px;margin:0}
+section#main[role=main] > .container > .row{width:100%;max-width:400px;margin:0;animation:lmail-rise .6s cubic-bezier(.16,1,.3,1) both}
 section#main[role=main] > .container > .row > [class*="col-"]{width:100%;margin:0;float:none;padding:0}
 section#main[role=main] .panel{box-shadow:none !important;border:none !important;background:transparent !important}
-section#main[role=main] .mautic-logo.img-circle{background-position:left center !important;height:56px;margin-bottom:28px !important}
-section#main[role=main] .btn-primary{width:100%;padding:14px !important}
-@media (max-width: 900px){
-  section#main[role=main]::before{display:none}
-  section#main[role=main] > .container{margin-left:0 !important;width:100%;padding:0 24px}
+section#main[role=main] .panel-body{padding:0}
+section#main[role=main] .mautic-logo.img-circle{
+  background-position:center top !important;background-size:auto 44px !important;height:auto !important;width:auto;
+  padding-top:84px;margin-bottom:26px !important;
 }
+section#main[role=main] .mautic-logo.img-circle::after{
+  content:"Welcome back";display:block;text-align:center;font-size:34px;font-weight:500;letter-spacing:-.02em;color:var(--lm-ink);
+}
+/* labels above fields, no icon tiles, no placeholder text */
+section#main[role=main] .login-form .input-group{display:block;margin-bottom:18px !important}
+section#main[role=main] .login-form .input-group-addon{display:none !important}
+section#main[role=main] .login-form label.sr-only{
+  position:static;width:auto;height:auto;margin:0 0 6px;overflow:visible;clip:auto;display:block;
+  font-size:15px;font-weight:500;color:var(--lm-ink);text-align:left;
+}
+section#main[role=main] .login-form label[for=password]{font-size:0}
+section#main[role=main] .login-form label[for=password]::before{content:"Password";font-size:15px}
+section#main[role=main] .login-form .form-control{
+  float:none;width:100%;height:52px;padding:0 14px !important;border:1px solid #CFCBDA !important;border-radius:8px !important;
+  background:#fff !important;font-size:16px;color:var(--lm-ink);
+}
+section#main[role=main] .login-form .form-control:focus{border-color:var(--lm-blue) !important;box-shadow:0 0 0 3px rgba(36,70,151,.18) !important}
+section#main[role=main] .login-form ::placeholder{color:transparent}
+section#main[role=main] .btn-primary{
+  width:100%;height:54px;padding:0 !important;border-radius:8px !important;background:var(--lm-ink) !important;border-color:var(--lm-ink) !important;
+  font-size:17px !important;display:flex !important;align-items:center;justify-content:center;text-align:center;
+}
+section#main[role=main] .btn-primary > span{display:block;width:100%;text-align:center;justify-content:center}
+section#main[role=main] .btn-primary:hover{background:var(--lm-blue) !important;border-color:var(--lm-blue) !important}
+section#main[role=main] .btn-primary:active{transform:scale(.99)}
+section#main[role=main] .login-form a{color:var(--lm-blue) !important}
+@media (max-width: 900px){
+  section#main[role=main]::before, section#main[role=main]::after, section#main[role=main] > .container::after{display:none}
+  section#main[role=main] > .container{width:100%}
+}
+@media (prefers-reduced-motion: reduce){
+  section#main[role=main]::after, section#main[role=main] > .container > .row{animation:none}
+}
+
+/* ---- empty lists: one calm message, no tip card ---- */
+body .page-list > .alert-warning{
+  border:0 !important;border-left:0 !important;background:transparent !important;background-image:none !important;
+  box-shadow:none !important;padding:56px 24px 48px !important;text-align:center;
+}
+body .page-list > .alert-warning::before, body .page-list > .alert-warning::after{display:none !important}
+body .page-list > .alert-warning h4{font-size:20px !important;font-weight:600 !important;color:var(--lm-ink) !important}
+body .page-list > .alert-warning p{color:var(--lm-muted) !important}
+body .page-list > .well{display:none !important}
+.lmail-hidden{display:none !important}
+
+/* ---- smoother loading ---- */
+/* Keep the sidebar hidden until the menu is regrouped, so it never flashes the old order.
+   The animation is a safety net: if the script fails, the menu still appears after a moment. */
+body .nav-sidebar > ul.nav:not([data-lmail]){opacity:0;animation:lmail-reveal .01s 1.5s forwards}
+@keyframes lmail-reveal{to{opacity:1}}
+body .nav-sidebar > ul.nav[data-lmail]{opacity:1}
+/* page content eases in when you move between sections */
+#app-content > .content-body, #app-content .page-list{animation:lmail-rise .28s ease-out both}
+@media (prefers-reduced-motion: reduce){ #app-content > .content-body, #app-content .page-list{animation:none} }
 
 /* ---- fixes ---- */
 .lmail-ai [hidden]{display:none !important}

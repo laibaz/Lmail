@@ -14,7 +14,7 @@ START='/* ==== LMAIL BRANDING START ==== */'
 END='/* ==== LMAIL BRANDING END ==== */'
 
 echo "Copying images and favicon..."
-for f in lmail-logo.png lmail-logo-white.png lmail-icon.png lmail-logo.svg favicon.ico; do
+for f in lmail-logo.png lmail-logo-white.png lmail-icon.png lmail-logo.svg lmail-app-preview.webp favicon.ico; do
   docker compose cp "branding/$f" "$SVC:$ROOT/media/images/$f"
 done
 docker compose cp branding/favicon.ico "$SVC:$ROOT/favicon.ico"

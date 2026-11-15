@@ -236,9 +236,21 @@
     }
   }
 
+  /* ---------- hide Mautic's "ProTip" lines ---------- */
+  function hideTips() {
+    var marks = document.querySelectorAll('#app-content span.fw-b, #app-content strong');
+    for (var i = 0; i < marks.length; i++) {
+      if (/^ProTip!?$/.test(marks[i].textContent.trim())) {
+        var box = marks[i].closest('.text-muted') || marks[i].parentNode;
+        if (box) box.classList.add('lmail-hidden');
+      }
+    }
+  }
+
   /* ---------- run on load and after Mautic's in-page navigation ---------- */
   function run() {
     regroupMenu();
+    hideTips();
     if (!document.querySelector('.s-dashboard')) document.body.classList.remove('lmail-on-home');
     homeHeader();
     aiButton();
@@ -248,9 +260,13 @@
     run();
     var target = document.getElementById('app-content');
     if (target && window.MutationObserver) {
-      var timer;
-      new MutationObserver(function () { clearTimeout(timer); timer = setTimeout(run, 60); })
-        .observe(target, { childList: true, subtree: true });
+      var queued = false;
+      new MutationObserver(function () {
+        if (queued) return;
+        queued = true;
+        // same frame as the content change, so the greeting and menu never pop in late
+        (window.queueMicrotask || setTimeout)(function () { queued = false; run(); });
+      }).observe(target, { childList: true, subtree: true });
     }
   }
 
