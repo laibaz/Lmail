@@ -4,9 +4,10 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Plus } from "@phosphor-icons/react";
 
 const faqs = [
+  ["Do I own the system?", "Yes. LMAIL is set up as your own platform with your own sending account and domain. Your contacts, your emails and your sending reputation belong to you."],
   ["What is LMAIL?", "An email marketing platform by Laib Studios. Store contacts, build segments, design emails, run automated campaigns and track results."],
   ["Do I need technical skills?", "No. We set up your account and sending domain with you. After that it is point, click and send."],
-  ["How does pricing work?", "It depends on how many contacts you have and how much you send. Book a demo and we will give you a clear quote."],
+  ["How does pricing work?", "A one-time setup, then a monthly fee plus the cost of the emails you send. There is no charge per contact. Book a demo and we will give you a clear quote."],
   ["Will my emails reach the inbox?", "Each account sends from its own domain with its own reputation, and new domains are warmed up gradually. That gives your email the best chance, though no platform can guarantee the inbox."],
   ["Can I use LMAIL for my own clients?", "Yes. Agencies can give each client a separate space and run it under their own brand."],
   ["How does the AI writer work?", "In the email editor, press Write with AI and describe your email in a sentence or two. LMAIL drafts the subject line and the message. You review and edit it before anything is sent."],
