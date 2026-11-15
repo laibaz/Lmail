@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Apply the LMAIL rebrand to a running Mautic container.
+# Apply the LMAIL rebrand and install the LMAIL plugin on a running Mautic container.
 # Run from the repo root after `docker compose up -d` and the web installer:
 #   ./scripts/apply-branding.sh
 # Safe to run again — e.g. after a Mautic update regenerates app.css.
@@ -50,6 +50,16 @@ docker compose exec -T "$SVC" sh -c "
   sed -i \"s/pageTitle|default('Mautic')/pageTitle|default('LMAIL')/\" $ROOT/app/bundles/CoreBundle/Resources/views/Default/head.html.twig
 
   chown -R www-data:www-data $ROOT/media $ROOT/translations
-  rm -rf /var/www/html/var/cache/prod /var/www/html/var/cache/dev 2>/dev/null || true
 "
+
+echo "Installing the LMAIL plugin (menu, home screen, AI writer)..."
+docker compose exec -T "$SVC" mkdir -p "$ROOT/plugins/LmailBundle"
+docker compose cp plugin/LmailBundle/. "$SVC:$ROOT/plugins/LmailBundle/"
+docker compose exec -T "$SVC" chown -R www-data:www-data "$ROOT/plugins/LmailBundle"
+# The plugin keeps its own copy of the Anthropic SDK, so Mautic's dependencies are not touched.
+docker compose exec -T -u www-data -w "$ROOT/plugins/LmailBundle" -e COMPOSER_HOME=/tmp/composer "$SVC" \
+  composer install --no-dev --no-interaction --no-progress --quiet
+docker compose exec -T "$SVC" sh -c "rm -rf /var/www/html/var/cache/prod /var/www/html/var/cache/dev 2>/dev/null || true"
+docker compose exec -T -u www-data -w /var/www/html "$SVC" php bin/console mautic:plugins:reload --quiet
+docker compose exec -T -u www-data -w /var/www/html "$SVC" php bin/console cache:clear --quiet
 echo "Done. Hard-refresh the browser (Cmd+Shift+R) to see LMAIL."

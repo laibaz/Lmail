@@ -2,7 +2,7 @@
 /* ============ LMAIL round 5: undo the red-text flood ============ */
 /* ordinary links/text back to neutral dark */
 a, a span{color:#3f3f3f}
-a:hover, a:hover span{color:#7C5CFF}
+a:hover, a:hover span{color:#244697}
 
 /* buttons: label text ALWAYS white, never inherited red */
 .btn-primary, .btn-primary *, .btn-primary span, .btn-primary i,
@@ -12,7 +12,7 @@ button.btn-primary, .btn.btn-primary *{color:#ffffff !important}
 .btn-default, .btn-default *{color:#3f3f3f !important}
 
 /* true accents stay red */
-.text-primary{color:#7C5CFF !important}
+.text-primary{color:#244697 !important}
 .pagination > .active > a{color:#fff !important}
 
 /* dropdown carets next to red links: match neutral */

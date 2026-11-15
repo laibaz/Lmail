@@ -28,15 +28,15 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
   border:1px solid #E2E1EC !important;
   box-shadow:none !important;
 }
-.form-control:focus{border-color:#7C5CFF !important;box-shadow:0 0 0 3px rgba(124,92,255,.12) !important}
+.form-control:focus{border-color:#244697 !important;box-shadow:0 0 0 3px rgba(36,70,151,.12) !important}
 
 /* sidebar: clean white, pill-style active item, kill the ugly focus box */
 .nav-sidebar{background:#ffffff}
 .nav-sidebar a:focus, .nav-sidebar a:focus-visible{outline:none !important}
 .nav-sidebar li a{border-radius:10px;margin:2px 8px;transition:background .15s}
-.nav-sidebar li a:hover{background:#F6F4FF}
+.nav-sidebar li a:hover{background:#FBF3F7}
 .nav-sidebar li.active > a{
-  background:#EEEAFF !important;
+  background:#F8E9F1 !important;
   border-left:none !important;
 }
 
@@ -47,8 +47,8 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
 
 /* buttons: confident pills */
 .btn{border-radius:999px !important;font-weight:600 !important}
-.btn-primary{box-shadow:0 2px 8px rgba(124,92,255,.25) !important}
-.btn-primary:hover{box-shadow:0 4px 14px rgba(124,92,255,.35) !important}
+.btn-primary{box-shadow:0 2px 8px rgba(36,70,151,.25) !important}
+.btn-primary:hover{box-shadow:0 4px 14px rgba(36,70,151,.35) !important}
 
 /* toolbar/date filter bar: card look */
 .toolbar, .page-header + div .input-group{border-radius:10px}

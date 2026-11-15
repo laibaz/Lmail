@@ -1,0 +1,135 @@
+/* ============ LMAIL round 9: new layout (dark sidebar, grouped menu, home, AI writer, split login) ============
+   Palette: pink #DB82AF, mauve #A466A6, purple #7458A0, blue #244697, plus ink #17172B and white. */
+:root{
+  --lm-pink:#DB82AF; --lm-mauve:#A466A6; --lm-purple:#7458A0; --lm-blue:#244697;
+  --lm-ink:#17172B; --lm-line:#E6E2EE; --lm-soft:#F6F4FA; --lm-muted:#6F6C85;
+  --lm-brand:linear-gradient(120deg,#DB82AF 0%,#7458A0 55%,#244697 100%);
+}
+body, body .content-body, body #app-content{background:var(--lm-soft) !important}
+
+/* ---- sidebar: dark, grouped ---- */
+body .app-sidebar.sidebar-left, body .app-sidebar .sidebar-content, body .nav-sidebar{background:var(--lm-ink) !important;border-right:none !important}
+body .nav-sidebar li a, body .nav-sidebar li a span, body .nav-sidebar li a i,
+body .nav-sidebar a .nav-item-name{color:rgba(255,255,255,.74) !important}
+body .nav-sidebar li a{border-radius:10px;margin:2px 10px !important;border-left:none !important}
+body .nav-sidebar li a:hover{background:rgba(255,255,255,.07) !important}
+body .nav-sidebar li a:hover, body .nav-sidebar li a:hover span, body .nav-sidebar li a:hover i{color:#fff !important}
+body .nav-sidebar li.active > a{background:rgba(255,255,255,.1) !important;box-shadow:inset 3px 0 0 var(--lm-pink)}
+body .nav-sidebar li.active > a, body .nav-sidebar li.active > a span, body .nav-sidebar li.active > a i{color:#fff !important}
+body .nav-sidebar .lmail-nav-label{
+  padding:18px 22px 6px; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.4);
+}
+body .nav-sidebar .lmail-nav-more{margin-top:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)}
+body .nav-sidebar .lmail-nav-more-toggle{
+  display:flex; align-items:center; width:calc(100% - 20px); margin:2px 10px; padding:10px 15px; border:0; border-radius:10px;
+  background:transparent; color:rgba(255,255,255,.6); font:inherit; text-align:left; cursor:pointer;
+}
+body .nav-sidebar .lmail-nav-more-toggle:hover{background:rgba(255,255,255,.07);color:#fff}
+body .nav-sidebar .lmail-nav-more-toggle .icon{margin-right:14px}
+body .nav-sidebar .lmail-nav-more-list{display:none;padding:0;margin:0;list-style:none}
+body .nav-sidebar .lmail-nav-more.is-open .lmail-nav-more-list{display:block}
+body .nav-sidebar .lmail-nav-more-list li a, body .nav-sidebar .lmail-nav-more-list li a span{font-size:13.5px;color:rgba(255,255,255,.6) !important}
+body .nav-sidebar .nav-submenu li a{margin-left:38px !important}
+body .nav-sidebar .arrow{opacity:.5}
+
+/* ---- top bar ---- */
+body #app-header.navbar{background:#fff !important;border-bottom:1px solid var(--lm-line) !important;box-shadow:none !important}
+
+/* ---- buttons: one primary colour ---- */
+body .btn-primary, body .btn-primary:focus{background-color:var(--lm-blue) !important;border-color:var(--lm-blue) !important;box-shadow:none !important}
+body .btn-primary:hover{background-color:#1A3472 !important;border-color:#1A3472 !important;box-shadow:none !important}
+body a:hover, body a:hover span{color:var(--lm-blue)}
+
+/* ---- home header on the dashboard ---- */
+.lmail-home{margin:28px 30px 4px}
+.lmail-home-head h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em;color:var(--lm-ink)}
+.lmail-home-head p{margin:6px 0 0;font-size:16px;color:var(--lm-muted)}
+.lmail-home-cards{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;margin-top:22px}
+.lmail-home-card{
+  display:flex;flex-direction:column;gap:6px;padding:22px;border-radius:16px;background:#fff;border:1px solid var(--lm-line);
+  text-decoration:none !important;transition:transform .2s ease, box-shadow .2s ease;
+}
+.lmail-home-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px -14px rgba(23,23,43,.25)}
+.lmail-home-card:active{transform:scale(.99)}
+.lmail-home-icon{font-size:26px;color:var(--lm-purple);margin-bottom:18px}
+.lmail-home-title{font-size:18px;font-weight:700;color:var(--lm-ink) !important}
+.lmail-home-text{font-size:14px;color:var(--lm-muted) !important}
+.lmail-home-card.is-primary{background:var(--lm-brand);border-color:transparent}
+.lmail-home-card.is-primary .lmail-home-icon, .lmail-home-card.is-primary .lmail-home-title{color:#fff !important}
+.lmail-home-card.is-primary .lmail-home-text{color:rgba(255,255,255,.88) !important}
+body.lmail-on-home #app-content .page-header h1, body.lmail-on-home #app-content .page-header h3{font-size:20px !important;color:var(--lm-muted)}
+@media (max-width: 991px){ .lmail-home-cards{grid-template-columns:1fr} .lmail-home{margin:20px 15px 0} }
+
+/* ---- AI writer ---- */
+body .btn.lmail-ai-open{
+  background:var(--lm-brand) !important;border:0 !important;color:#fff !important;margin-right:8px;
+}
+body .btn.lmail-ai-open i{color:#fff !important;margin-right:6px}
+body .btn.lmail-ai-open:hover{filter:brightness(1.06)}
+.lmail-ai{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(23,23,43,.55)}
+.lmail-ai.is-open{display:flex}
+.lmail-ai-dialog{
+  position:relative;display:grid;grid-template-columns:minmax(320px,420px) minmax(0,1fr);width:min(1040px,100%);max-height:calc(100vh - 40px);
+  background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 40px 100px -30px rgba(23,23,43,.6);
+}
+.lmail-ai-form{padding:34px 32px;overflow:auto}
+.lmail-ai-kicker{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--lm-purple)}
+.lmail-ai-form h2{margin:0 0 22px;font-size:26px;font-weight:700;letter-spacing:-.02em;color:var(--lm-ink)}
+.lmail-ai-field{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.lmail-ai-field label{font-size:13px;font-weight:600;color:var(--lm-ink);margin:0}
+.lmail-ai-field small{font-size:12px;color:var(--lm-muted)}
+.lmail-ai-field textarea, .lmail-ai-field input, .lmail-ai-field select{
+  width:100%;padding:11px 13px;border:1px solid var(--lm-line);border-radius:10px;font:inherit;font-size:14px;color:var(--lm-ink);background:#fff;
+}
+.lmail-ai-field textarea{resize:vertical;min-height:104px}
+.lmail-ai-field textarea:focus, .lmail-ai-field input:focus, .lmail-ai-field select:focus{outline:none;border-color:var(--lm-blue);box-shadow:0 0 0 3px rgba(36,70,151,.15)}
+.lmail-ai-field ::placeholder{color:#8f8da6}
+.lmail-ai-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lmail-ai-status{min-height:20px;margin:0 0 14px;font-size:13px;color:var(--lm-muted)}
+.lmail-ai-status.is-error{color:#B3261E}
+.lmail-ai-actions{display:flex;gap:10px;flex-wrap:wrap}
+.lmail-ai-preview{background:var(--lm-soft);border-left:1px solid var(--lm-line);padding:26px;overflow:auto;display:flex;flex-direction:column}
+.lmail-ai-preview[hidden]{display:none}
+.lmail-ai-dialog:has(.lmail-ai-preview[hidden]){grid-template-columns:minmax(320px,460px);width:auto}
+.lmail-ai-subject-label{margin:0;font-size:12px;color:var(--lm-muted)}
+.lmail-ai-subject{margin:2px 0 14px;font-size:18px;font-weight:700;color:var(--lm-ink)}
+.lmail-ai-preview iframe{flex:1;width:100%;min-height:440px;border:1px solid var(--lm-line);border-radius:12px;background:#fff}
+.lmail-ai-close{position:absolute;top:12px;right:14px;z-index:1;width:36px;height:36px;border:0;border-radius:999px;background:transparent;font-size:24px;line-height:1;color:var(--lm-muted);cursor:pointer}
+.lmail-ai-close:hover{background:var(--lm-soft);color:var(--lm-ink)}
+.lmail-ai-skeleton{display:flex;flex-direction:column;gap:14px;padding:10px}
+.lmail-ai-skeleton span{display:block;height:16px;border-radius:8px;background:linear-gradient(90deg,#e9e6f0 25%,#f4f2f8 37%,#e9e6f0 63%);background-size:400% 100%;animation:lmail-shimmer 1.4s ease infinite}
+.lmail-ai-skeleton span:nth-child(1){width:55%;height:22px}
+.lmail-ai-skeleton span:nth-child(3){width:86%}
+.lmail-ai-skeleton span:nth-child(4){width:64%}
+@keyframes lmail-shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
+@media (prefers-reduced-motion: reduce){ .lmail-ai-skeleton span{animation:none} .lmail-home-card{transition:none} }
+.lmail-ai-applied{margin:0 0 16px;padding:12px 16px;border-radius:12px;background:#F8E9F1;color:var(--lm-ink);font-size:14px}
+@media (max-width: 860px){ .lmail-ai-dialog{grid-template-columns:1fr;overflow:auto} .lmail-ai-preview{border-left:0;border-top:1px solid var(--lm-line)} .lmail-ai-row{grid-template-columns:1fr} }
+
+/* ---- email type picker: headings were white on white ---- */
+body .modal .panel-heading, body .modal .panel-heading *, body .modal .panel-title{color:var(--lm-ink) !important}
+
+/* ---- login: brand panel on the left, form on the right ---- */
+section#main[role=main]{min-height:100vh;background:#fff}
+section#main[role=main]::before{
+  content:"Email that sounds like you.";
+  position:fixed;left:0;top:0;bottom:0;width:46%;padding:0 6%;box-sizing:border-box;
+  display:flex;align-items:center;
+  background:var(--lm-brand);color:#fff;font-size:44px;font-weight:700;line-height:1.08;letter-spacing:-.02em;
+}
+section#main[role=main] > .container{
+  margin:0 0 0 46% !important;width:54%;min-height:100vh;display:flex;align-items:center;justify-content:center;
+}
+section#main[role=main] > .container > .row{width:100%;max-width:400px;margin:0}
+section#main[role=main] > .container > .row > [class*="col-"]{width:100%;margin:0;float:none;padding:0}
+section#main[role=main] .panel{box-shadow:none !important;border:none !important;background:transparent !important}
+section#main[role=main] .mautic-logo.img-circle{background-position:left center !important;height:56px;margin-bottom:28px !important}
+section#main[role=main] .btn-primary{width:100%;padding:14px !important}
+@media (max-width: 900px){
+  section#main[role=main]::before{display:none}
+  section#main[role=main] > .container{margin-left:0 !important;width:100%;padding:0 24px}
+}
+
+/* ---- fixes ---- */
+.lmail-ai [hidden]{display:none !important}
+body .btn.lmail-ai-open, body .btn.lmail-ai-open *{color:#fff !important;opacity:1 !important}

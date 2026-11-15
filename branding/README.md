@@ -4,15 +4,15 @@ Brand assets that turn the stock Mautic UI into LMAIL.
 
 | File | What it is |
 |---|---|
-| `lmail-logo.svg` | Full logo (violet L tile + "LMAIL" wordmark), vector |
+| `lmail-logo.svg` | Full logo (gradient L tile + "LMAIL" wordmark), vector |
 | `lmail-logo.png` | Full logo, dark wordmark — for light backgrounds |
 | `lmail-logo-white.png` | Full logo, white wordmark — for dark backgrounds |
-| `lmail-icon.png` | 512×512 violet "L" app icon |
+| `lmail-icon.png` | 512×512 "L" app icon (pink to blue gradient) |
 | `favicon.ico` | Browser tab icon (16×16, 32×32) |
 | `lmail.css` | **The full LMAIL theme** — all CSS rounds combined into one file |
 | `css-history/` | The original CSS rounds (logo, theme 1–7, modern pass), kept for reference |
 
-Brand violet: `#7C5CFF` · Accent lime: `#C6FF3D` · Text black: `#0D0D0D`
+Palette: pink `#DB82AF` · mauve `#A466A6` · purple `#7458A0` · blue `#244697` · ink `#17172B`
 
 ## Where these go inside the Mautic container
 

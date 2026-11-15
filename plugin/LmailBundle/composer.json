@@ -1,0 +1,13 @@
+{
+    "name": "laibstudios/lmail-bundle",
+    "description": "LMAIL plugin for Mautic: interface changes and the AI email writer.",
+    "type": "mautic-plugin",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": ">=8.1",
+        "anthropic-ai/sdk": "^1.0"
+    },
+    "config": {
+        "allow-plugins": false
+    }
+}

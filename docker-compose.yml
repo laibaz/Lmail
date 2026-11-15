@@ -11,6 +11,8 @@ x-mautic-env: &mautic-env
   MAUTIC_DB_PASSWORD: ${MYSQL_PASSWORD}
   MAUTIC_TRUSTED_PROXIES: '["0.0.0.0/0"]'
   PHP_INI_VALUE_DATE_TIMEZONE: ${TZ:-UTC}
+  # AI email writer (LMAIL plugin). Leave empty to keep the AI writer switched off.
+  ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
 
 services:
   db:
