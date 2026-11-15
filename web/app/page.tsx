@@ -1,10 +1,9 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
-import { Marquee } from "@/components/Marquee";
 import { Features } from "@/components/Features";
-import { AiDemo } from "@/components/AiDemo";
+import { AiWriter } from "@/components/AiWriter";
 import { HowItWorks } from "@/components/HowItWorks";
-import { Audience } from "@/components/Audience";
+import { Inbox } from "@/components/Inbox";
 import { Faq } from "@/components/Faq";
 import { Cta, Footer } from "@/components/Cta";
 
@@ -14,11 +13,10 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Marquee />
         <Features />
-        <AiDemo />
+        <AiWriter />
         <HowItWorks />
-        <Audience />
+        <Inbox />
         <Faq />
         <Cta />
       </main>

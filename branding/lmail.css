@@ -10,56 +10,56 @@
 
 /* ---- from lmail-theme.css ---- */
 
-/* ============ LMAIL theme — laib studios red ============ */
+/* ============ LMAIL theme — laib studios violet ============ */
 :root{
-  --lmail-red:#D61D38;
-  --lmail-red-dark:#B31730;
+  --lmail-red:#7C5CFF;
+  --lmail-red-dark:#5B3DF0;
   --lmail-black:#0D0D0D;
 }
 
 /* primary buttons everywhere */
 .btn-primary, .btn-primary:focus{
-  background-color:#D61D38 !important;
-  border-color:#D61D38 !important;
+  background-color:#7C5CFF !important;
+  border-color:#7C5CFF !important;
   color:#fff !important;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active,
 .btn-primary:active:hover{
-  background-color:#B31730 !important;
-  border-color:#B31730 !important;
+  background-color:#5B3DF0 !important;
+  border-color:#5B3DF0 !important;
 }
 
 /* links + accents */
-a{color:#D61D38}
-a:hover, a:focus{color:#B31730}
-.text-primary{color:#D61D38 !important}
+a{color:#7C5CFF}
+a:hover, a:focus{color:#5B3DF0}
+.text-primary{color:#7C5CFF !important}
 
 /* form focus */
-.form-control:focus{border-color:#D61D38 !important;box-shadow:0 0 0 1px rgba(214,29,56,.25) !important}
+.form-control:focus{border-color:#7C5CFF !important;box-shadow:0 0 0 1px rgba(124,92,255,.25) !important}
 
 /* checkboxes / toggles that use the primary color */
 .custom-primary input:checked + span,
-.toggle input:checked + .toggle-inner{background-color:#D61D38 !important;border-color:#D61D38 !important}
+.toggle input:checked + .toggle-inner{background-color:#7C5CFF !important;border-color:#7C5CFF !important}
 
 /* left nav active item */
 .nav-sidebar > li.active > a,
-.nav-sidebar > li > a:hover{border-left-color:#D61D38 !important}
-.nav-sidebar > li.active > a .icon, .nav-sidebar > li.active > a span{color:#D61D38}
+.nav-sidebar > li > a:hover{border-left-color:#7C5CFF !important}
+.nav-sidebar > li.active > a .icon, .nav-sidebar > li.active > a span{color:#7C5CFF}
 
 /* pagination / tabs active */
-.pagination > .active > a, .pagination > .active > a:hover{background-color:#D61D38 !important;border-color:#D61D38 !important}
-.nav-tabs > li.active > a{border-top-color:#D61D38 !important}
+.pagination > .active > a, .pagination > .active > a:hover{background-color:#7C5CFF !important;border-color:#7C5CFF !important}
+.nav-tabs > li.active > a{border-top-color:#7C5CFF !important}
 
 /* progress bars, labels, badges that default to mautic blue */
-.progress-bar{background-color:#D61D38}
-.label-primary, .badge-primary{background-color:#D61D38 !important}
+.progress-bar{background-color:#7C5CFF}
+.label-primary, .badge-primary{background-color:#7C5CFF !important}
 
 /* login page: replace mautic copyright with powered by laib studios */
 section#main .row .text-center.text-muted{font-size:0 !important}
 section#main .row .text-center.text-muted::after{
   content:"powered by laib studios";
   font-size:13px;
-  color:#6B6B6B;
+  color:#62607A;
   letter-spacing:.02em;
   display:block;
 }
@@ -81,10 +81,10 @@ header .mautic-logo-figure{display:none !important}
 .app-footer, footer, .footer{font-size:0 !important}
 .app-footer::after, footer::after, .footer::after{
   content:"powered by laib studios";
-  font-size:13px; color:#6B6B6B; letter-spacing:.02em; display:block; padding:8px 0;
+  font-size:13px; color:#62607A; letter-spacing:.02em; display:block; padding:8px 0;
 }
 
-/* tip mascot: shift purple to lmail red */
+/* tip mascot: match the lmail colour */
 img[src*="mascot"], img[src*="Mascot"], img[src*="tip"], .tip img, blockquote img{
   filter:hue-rotate(115deg) saturate(1.15);
 }
@@ -93,18 +93,18 @@ img[src*="mascot"], img[src*="Mascot"], img[src*="tip"], .tip img, blockquote im
 
 /* ============ LMAIL round 3: kill remaining purples ============ */
 :root{
-  --brand:#D61D38; --primary:#D61D38; --link:#D61D38;
-  --color-primary:#D61D38; --link-color:#D61D38;
+  --brand:#7C5CFF; --primary:#7C5CFF; --link:#7C5CFF;
+  --color-primary:#7C5CFF; --link-color:#7C5CFF;
 }
-a, a span, .quick-filters, .quickfilters, [class*="quick-filter"]{color:#D61D38}
-a:hover{color:#B31730}
+a, a span, .quick-filters, .quickfilters, [class*="quick-filter"]{color:#7C5CFF}
+a:hover{color:#5B3DF0}
 .nav-sidebar li.active a, .nav-sidebar li.active a i, .nav-sidebar li.active a span,
-.nav > li.active > a, .nav > li.active > a i{color:#D61D38 !important}
-.text-info, .text-secondary-link{color:#D61D38 !important}
-.btn-ghost, .btn-link{color:#D61D38 !important}
-.dropdown-menu > .active > a{background-color:#D61D38 !important}
+.nav > li.active > a, .nav > li.active > a i{color:#7C5CFF !important}
+.text-info, .text-secondary-link{color:#7C5CFF !important}
+.btn-ghost, .btn-link{color:#7C5CFF !important}
+.dropdown-menu > .active > a{background-color:#7C5CFF !important}
 /* selection + misc accents */
-::selection{background:#D61D38;color:#fff}
+::selection{background:#7C5CFF;color:#fff}
 
 /* ---- from lmail-theme4.css ---- */
 
@@ -117,18 +117,18 @@ a:hover{color:#B31730}
 /* sidebar: ONLY active item red */
 .nav-sidebar li.active > a, .nav-sidebar li.active > a span, .nav-sidebar li.active > a i,
 .nav > li.active > a, .nav > li.active > a span, .nav > li.active > a i{
-  color:#D61D38 !important;
+  color:#7C5CFF !important;
 }
 /* sidebar hover: subtle red */
 .nav-sidebar li a:hover, .nav-sidebar li a:hover span, .nav-sidebar li a:hover i{
-  color:#B31730 !important;
+  color:#5B3DF0 !important;
 }
 /* purple/blue focus outline -> red */
 a:focus, button:focus, .nav a:focus, [tabindex]:focus{
-  outline-color:#D61D38 !important;
+  outline-color:#7C5CFF !important;
 }
 a:focus-visible, button:focus-visible{
-  outline:2px solid #D61D38 !important;
+  outline:2px solid #7C5CFF !important;
 }
 /* any remaining purple/indigo icon accents */
 .ri-focus-2-line, .icon-point, [class*="point"] i{color:inherit}
@@ -138,7 +138,7 @@ a:focus-visible, button:focus-visible{
 /* ============ LMAIL round 5: undo the red-text flood ============ */
 /* ordinary links/text back to neutral dark */
 a, a span{color:#3f3f3f}
-a:hover, a:hover span{color:#D61D38}
+a:hover, a:hover span{color:#7C5CFF}
 
 /* buttons: label text ALWAYS white, never inherited red */
 .btn-primary, .btn-primary *, .btn-primary span, .btn-primary i,
@@ -148,7 +148,7 @@ button.btn-primary, .btn.btn-primary *{color:#ffffff !important}
 .btn-default, .btn-default *{color:#3f3f3f !important}
 
 /* true accents stay red */
-.text-primary{color:#D61D38 !important}
+.text-primary{color:#7C5CFF !important}
 .pagination > .active > a{color:#fff !important}
 
 /* dropdown carets next to red links: match neutral */
@@ -156,7 +156,7 @@ button.btn-primary, .btn.btn-primary *{color:#ffffff !important}
 
 /* ---- from lmail-theme6.css ---- */
 
-/* ============ LMAIL round 6: the mascot turns red ============ */
+/* ============ LMAIL round 6: the mascot is recoloured ============ */
 .mautibot-image img{
   filter:hue-rotate(120deg) saturate(1.25) brightness(1.02);
 }
@@ -165,9 +165,9 @@ button.btn-primary, .btn.btn-primary *{color:#ffffff !important}
 
 /* ============ LMAIL round 7: our mascot takes the stage ============ */
 .mautibot-image img{
-  content:url('/media/images/lmail-mascot.png');
+  content:url('/media/images/lmail-icon.png');
   filter:none;
-  max-height:125px;
+  max-height:72px;
 }
 
 /* ---- from lmail-modern.css ---- */
@@ -178,8 +178,8 @@ body, .container-fluid, input, button, select, textarea{
   font-family:'Inter', 'Open Sans', Helvetica, Arial, sans-serif !important;
 }
 
-/* warm paper background like klaviyo */
-body, .content-body, #app-content{background:#faf9f7 !important}
+/* cool off-white background */
+body, .content-body, #app-content{background:#F7F7FB !important}
 
 /* cards: no hard borders, soft shadow, generous radius */
 .panel, .panel-default, .well, .card{
@@ -188,7 +188,7 @@ body, .content-body, #app-content{background:#faf9f7 !important}
   box-shadow:0 1px 2px rgba(13,13,13,.04), 0 4px 16px rgba(13,13,13,.06) !important;
   background:#ffffff;
 }
-.panel-heading{border-bottom:1px solid #f0eeea !important;background:transparent !important}
+.panel-heading{border-bottom:1px solid #ECEBF3 !important;background:transparent !important}
 
 /* headings: tighter, heavier */
 h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
@@ -197,30 +197,30 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
 /* inputs: rounded, calm borders, red focus */
 .form-control, input[type=text], input[type=email], select{
   border-radius:10px !important;
-  border:1px solid #e6e3de !important;
+  border:1px solid #E2E1EC !important;
   box-shadow:none !important;
 }
-.form-control:focus{border-color:#D61D38 !important;box-shadow:0 0 0 3px rgba(214,29,56,.12) !important}
+.form-control:focus{border-color:#7C5CFF !important;box-shadow:0 0 0 3px rgba(124,92,255,.12) !important}
 
 /* sidebar: clean white, pill-style active item, kill the ugly focus box */
 .nav-sidebar{background:#ffffff}
 .nav-sidebar a:focus, .nav-sidebar a:focus-visible{outline:none !important}
 .nav-sidebar li a{border-radius:10px;margin:2px 8px;transition:background .15s}
-.nav-sidebar li a:hover{background:#faf3f4}
+.nav-sidebar li a:hover{background:#F6F4FF}
 .nav-sidebar li.active > a{
-  background:#fbeaed !important;
+  background:#EEEAFF !important;
   border-left:none !important;
 }
 
 /* tables: airy rows, soft hover */
-.table > tbody > tr > td{border-top:1px solid #f2f0ec !important;padding:14px 12px !important}
-.table > tbody > tr:hover{background:#faf9f7}
-.table > thead > tr > th{border-bottom:1px solid #e9e6e1 !important;color:#6B6B6B;font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+.table > tbody > tr > td{border-top:1px solid #EEEDF5 !important;padding:14px 12px !important}
+.table > tbody > tr:hover{background:#F7F7FB}
+.table > thead > tr > th{border-bottom:1px solid #E4E3EE !important;color:#62607A;font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
 
 /* buttons: confident pills */
 .btn{border-radius:999px !important;font-weight:600 !important}
-.btn-primary{box-shadow:0 2px 8px rgba(214,29,56,.25) !important}
-.btn-primary:hover{box-shadow:0 4px 14px rgba(214,29,56,.35) !important}
+.btn-primary{box-shadow:0 2px 8px rgba(124,92,255,.25) !important}
+.btn-primary:hover{box-shadow:0 4px 14px rgba(124,92,255,.35) !important}
 
 /* toolbar/date filter bar: card look */
 .toolbar, .page-header + div .input-group{border-radius:10px}
@@ -229,14 +229,14 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
 .dropdown-menu{border-radius:12px !important;border:none !important;box-shadow:0 8px 30px rgba(13,13,13,.12) !important}
 
 /* empty-state text: softer */
-.text-muted{color:#9a968f !important}
+.text-muted{color:#8F8DA6 !important}
 
 /* ---- from lmail-polish.css ---- */
 /* ============ LMAIL round 8: polish for client demos ============ */
 
 /* sidebar: white all the way down, no grey block under the menu */
 .app-sidebar.sidebar-left, .app-sidebar .sidebar-content{background:#ffffff !important}
-.app-sidebar.sidebar-left{border-right:1px solid #f0eeea !important}
+.app-sidebar.sidebar-left{border-right:1px solid #ECEBF3 !important}
 
 /* sub-menus: no grey slab, indented and calm */
 .nav-sidebar .nav-submenu, .nav-sidebar .nav-submenu.in, .nav-sidebar .nav-submenu.collapsing{
@@ -252,20 +252,20 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
    instead of the CSS-injected text from earlier rounds */
 footer, .app-footer, section#main .row .text-center.text-muted{font-size:12px !important}
 footer::after, .app-footer::after, section#main .row .text-center.text-muted::after{content:none !important;display:none !important}
-footer{border-top:1px solid #f0eeea !important;background:#faf9f7 !important;color:#9a968f !important;font-size:12px !important}
+footer{border-top:1px solid #ECEBF3 !important;background:#F7F7FB !important;color:#8F8DA6 !important;font-size:12px !important}
 
 /* date range: show full dates */
 #daterange_date_from, #daterange_date_to{min-width:132px;padding-left:12px !important;padding-right:12px !important}
 
 /* empty states: friendly card instead of a yellow warning */
 .page-list > .alert-warning{
-  background:#ffffff !important; border:1px dashed #e6e3de !important; border-left:1px dashed #e6e3de !important;
-  border-radius:14px !important; color:#6b6b6b !important; text-align:center; padding:36px 24px !important;
+  background:#ffffff !important; border:1px dashed #E2E1EC !important; border-left:1px dashed #E2E1EC !important;
+  border-radius:14px !important; color:#62607A !important; text-align:center; padding:36px 24px !important;
   box-shadow:none !important;
 }
 .page-list > .alert-warning h4{color:#0d0d0d !important;font-weight:700 !important;font-size:17px !important;margin-bottom:6px}
 
 /* login: soft icon tiles, red focus (no leftover purple outline) */
-.input-group-addon{background:#faf9f7 !important;border:1px solid #e6e3de !important;border-right:none !important;color:#9a968f !important;border-radius:10px 0 0 10px !important}
+.input-group-addon{background:#F7F7FB !important;border:1px solid #E2E1EC !important;border-right:none !important;color:#8F8DA6 !important;border-radius:10px 0 0 10px !important}
 .input-group .input-group-addon + .form-control{border-radius:0 10px 10px 0 !important}
 input:focus, input:focus-visible, .form-control:focus, .form-control:focus-visible{outline:none !important}

@@ -8,7 +8,7 @@ rebrand, demo data, and deployment scripts.
 
 ## Status
 
-- ✅ Runs locally with Docker, fully rebranded (logo, red theme, favicon, mascot)
+- ✅ Runs locally with Docker, fully rebranded (logo, violet theme, favicon)
 - ✅ Production setup ready: HTTPS, passwords in `.env`, backups
 - ⏳ Not yet deployed — see [docs/DEPLOY.md](docs/DEPLOY.md)
 - 🗺️ Planned: one instance per client with isolated SES sending, AI email writing

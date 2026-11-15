@@ -1,54 +1,54 @@
 
-/* ============ LMAIL theme — laib studios red ============ */
+/* ============ LMAIL theme — laib studios violet ============ */
 :root{
-  --lmail-red:#D61D38;
-  --lmail-red-dark:#B31730;
+  --lmail-red:#7C5CFF;
+  --lmail-red-dark:#5B3DF0;
   --lmail-black:#0D0D0D;
 }
 
 /* primary buttons everywhere */
 .btn-primary, .btn-primary:focus{
-  background-color:#D61D38 !important;
-  border-color:#D61D38 !important;
+  background-color:#7C5CFF !important;
+  border-color:#7C5CFF !important;
   color:#fff !important;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active,
 .btn-primary:active:hover{
-  background-color:#B31730 !important;
-  border-color:#B31730 !important;
+  background-color:#5B3DF0 !important;
+  border-color:#5B3DF0 !important;
 }
 
 /* links + accents */
-a{color:#D61D38}
-a:hover, a:focus{color:#B31730}
-.text-primary{color:#D61D38 !important}
+a{color:#7C5CFF}
+a:hover, a:focus{color:#5B3DF0}
+.text-primary{color:#7C5CFF !important}
 
 /* form focus */
-.form-control:focus{border-color:#D61D38 !important;box-shadow:0 0 0 1px rgba(214,29,56,.25) !important}
+.form-control:focus{border-color:#7C5CFF !important;box-shadow:0 0 0 1px rgba(124,92,255,.25) !important}
 
 /* checkboxes / toggles that use the primary color */
 .custom-primary input:checked + span,
-.toggle input:checked + .toggle-inner{background-color:#D61D38 !important;border-color:#D61D38 !important}
+.toggle input:checked + .toggle-inner{background-color:#7C5CFF !important;border-color:#7C5CFF !important}
 
 /* left nav active item */
 .nav-sidebar > li.active > a,
-.nav-sidebar > li > a:hover{border-left-color:#D61D38 !important}
-.nav-sidebar > li.active > a .icon, .nav-sidebar > li.active > a span{color:#D61D38}
+.nav-sidebar > li > a:hover{border-left-color:#7C5CFF !important}
+.nav-sidebar > li.active > a .icon, .nav-sidebar > li.active > a span{color:#7C5CFF}
 
 /* pagination / tabs active */
-.pagination > .active > a, .pagination > .active > a:hover{background-color:#D61D38 !important;border-color:#D61D38 !important}
-.nav-tabs > li.active > a{border-top-color:#D61D38 !important}
+.pagination > .active > a, .pagination > .active > a:hover{background-color:#7C5CFF !important;border-color:#7C5CFF !important}
+.nav-tabs > li.active > a{border-top-color:#7C5CFF !important}
 
 /* progress bars, labels, badges that default to mautic blue */
-.progress-bar{background-color:#D61D38}
-.label-primary, .badge-primary{background-color:#D61D38 !important}
+.progress-bar{background-color:#7C5CFF}
+.label-primary, .badge-primary{background-color:#7C5CFF !important}
 
 /* login page: replace mautic copyright with powered by laib studios */
 section#main .row .text-center.text-muted{font-size:0 !important}
 section#main .row .text-center.text-muted::after{
   content:"powered by laib studios";
   font-size:13px;
-  color:#6B6B6B;
+  color:#62607A;
   letter-spacing:.02em;
   display:block;
 }

@@ -1,5 +1,5 @@
 
-/* ============ LMAIL round 6: the mascot turns red ============ */
+/* ============ LMAIL round 6: the mascot is recoloured ============ */
 .mautibot-image img{
   filter:hue-rotate(120deg) saturate(1.25) brightness(1.02);
 }

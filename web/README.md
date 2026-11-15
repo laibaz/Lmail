@@ -1,7 +1,11 @@
 # LMAIL website
 
-The public landing page for LMAIL — Next.js 14, Tailwind CSS, Framer Motion.
-Colours: midnight `#0B0B1A`, electric violet `#7C5CFF`, lime `#C6FF3D`, pink `#FF6B9A`.
+The public landing page for LMAIL. Built with Next.js 14, Tailwind CSS, Motion, Geist and Phosphor icons.
+
+Colours: midnight `#0B0B1A` (background), violet `#7C5CFF` (brand), lime `#C6FF3D` (the one accent, used for buttons and highlights).
+
+The images in `public/` are real screenshots of the LMAIL app and the welcome email.
+To refresh them after changing the app, retake the screenshots at 1280x800 and save as WebP.
 
 ## Run locally
 

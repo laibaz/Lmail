@@ -1,20 +1,18 @@
-import { Mascot } from "./Mascot";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "./Logo";
 import { Reveal } from "./Reveal";
 import { site } from "./site";
 
 export function Cta() {
   return (
-    <section className="relative overflow-hidden px-5 pb-24">
+    <section className="mx-auto max-w-page px-5 pb-20 md:px-8 md:pb-28">
       <Reveal>
-        <div className="glass relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] px-8 py-16 text-center sm:py-20">
-          <div aria-hidden className="absolute left-1/2 top-0 h-72 w-[700px] -translate-x-1/2 rounded-full bg-violet/40 blur-[120px]" />
-          <div className="relative mx-auto w-28 animate-float sm:w-36"><Mascot /></div>
-          <h2 className="relative mx-auto mt-6 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-6xl">
-            Ready to send <span className="text-gradient">smarter?</span>
-          </h2>
-          <p className="relative mx-auto mt-4 max-w-xl text-lg text-haze">See LMAIL in action. A 20-minute call, your questions, no pressure.</p>
-          <a href={site.demoUrl} className="btn-lime relative mt-8">Book a demo <span aria-hidden>→</span></a>
+        <div className="panel flex flex-col items-start justify-between gap-8 p-8 md:flex-row md:items-end md:p-14">
+          <div>
+            <h2 className="text-5xl font-semibold leading-[1.02] tracking-tighter md:text-6xl">See LMAIL in action.</h2>
+            <p className="mt-4 max-w-[44ch] text-lg text-haze">A 20-minute call with your questions. No pressure.</p>
+          </div>
+          <a href={site.demoUrl} className="btn-primary">Book a demo <ArrowRight size={18} weight="bold" /></a>
         </div>
       </Reveal>
     </section>
@@ -24,7 +22,7 @@ export function Cta() {
 export function Footer() {
   return (
     <footer className="border-t border-white/10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-5 py-10 text-sm text-haze sm:flex-row">
+      <div className="mx-auto flex max-w-page flex-col items-start justify-between gap-5 px-5 py-10 text-sm text-haze sm:flex-row sm:items-center md:px-8">
         <Logo />
         <p>
           © {new Date().getFullYear()} LMAIL by{" "}
@@ -33,7 +31,6 @@ export function Footer() {
         <div className="flex gap-6">
           <a className="hover:text-white" href="#features">Features</a>
           <a className="hover:text-white" href="#faq">FAQ</a>
-          <a className="hover:text-white" href={site.demoUrl}>Contact</a>
         </div>
       </div>
     </footer>

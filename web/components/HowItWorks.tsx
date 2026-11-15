@@ -1,26 +1,25 @@
+import { PaperPlaneTilt, PencilSimpleLine, UsersThree } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "./Reveal";
 
 const steps = [
-  { n: "01", title: "Bring your contacts", body: "Import a spreadsheet or connect a signup form. LMAIL sorts people into smart segments." },
-  { n: "02", title: "Write with AI", body: "Describe your email, pick a design, and polish the draft LMAIL writes for you." },
-  { n: "03", title: "Send and learn", body: "Send now or automate it. Watch opens and clicks roll in, and let AI explain what to do next." },
+  { icon: UsersThree, title: "Bring your contacts", body: "Import a spreadsheet or connect a signup form. LMAIL sorts people into segments for you." },
+  { icon: PencilSimpleLine, title: "Write the email", body: "Start from a design, describe what you want to say, and edit the draft until it sounds like you." },
+  { icon: PaperPlaneTilt, title: "Send and measure", body: "Send now or schedule it. Watch opens and clicks come in and see what to do next." },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how" className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
-      <Reveal className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-lime">How it works</p>
-        <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">Up and sending in <span className="text-gradient">three steps.</span></h2>
+    <section id="how" className="mx-auto max-w-page px-5 py-20 md:px-8 md:py-28">
+      <Reveal>
+        <h2 className="h-section">Sending in three moves.</h2>
       </Reveal>
-      <ol className="relative mt-14 grid gap-5 md:grid-cols-3">
-        <div aria-hidden className="absolute left-0 right-0 top-12 hidden h-px bg-gradient-to-r from-transparent via-violet/60 to-transparent md:block" />
+      <ol className="mt-12">
         {steps.map((s, i) => (
-          <Reveal key={s.n} delay={i * 0.12}>
-            <li className="glass relative h-full rounded-3xl p-7">
-              <span className="font-display text-6xl font-bold text-gradient">{s.n}</span>
-              <h3 className="mt-4 font-display text-2xl font-bold">{s.title}</h3>
-              <p className="mt-2 text-haze">{s.body}</p>
+          <Reveal key={s.title} delay={i * 0.06}>
+            <li className="grid gap-3 border-t border-white/10 py-8 md:grid-cols-[auto_1fr_1fr] md:items-center md:gap-10">
+              <s.icon size={32} weight="duotone" className="text-violet-soft" />
+              <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">{s.title}</h3>
+              <p className="max-w-[48ch] text-haze">{s.body}</p>
             </li>
           </Reveal>
         ))}

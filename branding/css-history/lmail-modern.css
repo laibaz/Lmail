@@ -6,8 +6,8 @@ body, .container-fluid, input, button, select, textarea{
   font-family:'Inter', 'Open Sans', Helvetica, Arial, sans-serif !important;
 }
 
-/* warm paper background like klaviyo */
-body, .content-body, #app-content{background:#faf9f7 !important}
+/* cool off-white background */
+body, .content-body, #app-content{background:#F7F7FB !important}
 
 /* cards: no hard borders, soft shadow, generous radius */
 .panel, .panel-default, .well, .card{
@@ -16,7 +16,7 @@ body, .content-body, #app-content{background:#faf9f7 !important}
   box-shadow:0 1px 2px rgba(13,13,13,.04), 0 4px 16px rgba(13,13,13,.06) !important;
   background:#ffffff;
 }
-.panel-heading{border-bottom:1px solid #f0eeea !important;background:transparent !important}
+.panel-heading{border-bottom:1px solid #ECEBF3 !important;background:transparent !important}
 
 /* headings: tighter, heavier */
 h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
@@ -25,30 +25,30 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
 /* inputs: rounded, calm borders, red focus */
 .form-control, input[type=text], input[type=email], select{
   border-radius:10px !important;
-  border:1px solid #e6e3de !important;
+  border:1px solid #E2E1EC !important;
   box-shadow:none !important;
 }
-.form-control:focus{border-color:#D61D38 !important;box-shadow:0 0 0 3px rgba(214,29,56,.12) !important}
+.form-control:focus{border-color:#7C5CFF !important;box-shadow:0 0 0 3px rgba(124,92,255,.12) !important}
 
 /* sidebar: clean white, pill-style active item, kill the ugly focus box */
 .nav-sidebar{background:#ffffff}
 .nav-sidebar a:focus, .nav-sidebar a:focus-visible{outline:none !important}
 .nav-sidebar li a{border-radius:10px;margin:2px 8px;transition:background .15s}
-.nav-sidebar li a:hover{background:#faf3f4}
+.nav-sidebar li a:hover{background:#F6F4FF}
 .nav-sidebar li.active > a{
-  background:#fbeaed !important;
+  background:#EEEAFF !important;
   border-left:none !important;
 }
 
 /* tables: airy rows, soft hover */
-.table > tbody > tr > td{border-top:1px solid #f2f0ec !important;padding:14px 12px !important}
-.table > tbody > tr:hover{background:#faf9f7}
-.table > thead > tr > th{border-bottom:1px solid #e9e6e1 !important;color:#6B6B6B;font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+.table > tbody > tr > td{border-top:1px solid #EEEDF5 !important;padding:14px 12px !important}
+.table > tbody > tr:hover{background:#F7F7FB}
+.table > thead > tr > th{border-bottom:1px solid #E4E3EE !important;color:#62607A;font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
 
 /* buttons: confident pills */
 .btn{border-radius:999px !important;font-weight:600 !important}
-.btn-primary{box-shadow:0 2px 8px rgba(214,29,56,.25) !important}
-.btn-primary:hover{box-shadow:0 4px 14px rgba(214,29,56,.35) !important}
+.btn-primary{box-shadow:0 2px 8px rgba(124,92,255,.25) !important}
+.btn-primary:hover{box-shadow:0 4px 14px rgba(124,92,255,.35) !important}
 
 /* toolbar/date filter bar: card look */
 .toolbar, .page-header + div .input-group{border-radius:10px}
@@ -57,4 +57,4 @@ h1,h2,h3,.page-header h3{font-weight:700 !important;letter-spacing:-0.02em}
 .dropdown-menu{border-radius:12px !important;border:none !important;box-shadow:0 8px 30px rgba(13,13,13,.12) !important}
 
 /* empty-state text: softer */
-.text-muted{color:#9a968f !important}
+.text-muted{color:#8F8DA6 !important}

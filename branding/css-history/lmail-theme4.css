@@ -8,18 +8,18 @@
 /* sidebar: ONLY active item red */
 .nav-sidebar li.active > a, .nav-sidebar li.active > a span, .nav-sidebar li.active > a i,
 .nav > li.active > a, .nav > li.active > a span, .nav > li.active > a i{
-  color:#D61D38 !important;
+  color:#7C5CFF !important;
 }
 /* sidebar hover: subtle red */
 .nav-sidebar li a:hover, .nav-sidebar li a:hover span, .nav-sidebar li a:hover i{
-  color:#B31730 !important;
+  color:#5B3DF0 !important;
 }
 /* purple/blue focus outline -> red */
 a:focus, button:focus, .nav a:focus, [tabindex]:focus{
-  outline-color:#D61D38 !important;
+  outline-color:#7C5CFF !important;
 }
 a:focus-visible, button:focus-visible{
-  outline:2px solid #D61D38 !important;
+  outline:2px solid #7C5CFF !important;
 }
 /* any remaining purple/indigo icon accents */
 .ri-focus-2-line, .icon-point, [class*="point"] i{color:inherit}

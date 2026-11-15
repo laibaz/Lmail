@@ -14,10 +14,10 @@ header .mautic-logo-figure{display:none !important}
 .app-footer, footer, .footer{font-size:0 !important}
 .app-footer::after, footer::after, .footer::after{
   content:"powered by laib studios";
-  font-size:13px; color:#6B6B6B; letter-spacing:.02em; display:block; padding:8px 0;
+  font-size:13px; color:#62607A; letter-spacing:.02em; display:block; padding:8px 0;
 }
 
-/* tip mascot: shift purple to lmail red */
+/* tip mascot: match the lmail colour */
 img[src*="mascot"], img[src*="Mascot"], img[src*="tip"], .tip img, blockquote img{
   filter:hue-rotate(115deg) saturate(1.15);
 }

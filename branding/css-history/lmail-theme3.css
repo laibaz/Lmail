@@ -1,15 +1,15 @@
 
 /* ============ LMAIL round 3: kill remaining purples ============ */
 :root{
-  --brand:#D61D38; --primary:#D61D38; --link:#D61D38;
-  --color-primary:#D61D38; --link-color:#D61D38;
+  --brand:#7C5CFF; --primary:#7C5CFF; --link:#7C5CFF;
+  --color-primary:#7C5CFF; --link-color:#7C5CFF;
 }
-a, a span, .quick-filters, .quickfilters, [class*="quick-filter"]{color:#D61D38}
-a:hover{color:#B31730}
+a, a span, .quick-filters, .quickfilters, [class*="quick-filter"]{color:#7C5CFF}
+a:hover{color:#5B3DF0}
 .nav-sidebar li.active a, .nav-sidebar li.active a i, .nav-sidebar li.active a span,
-.nav > li.active > a, .nav > li.active > a i{color:#D61D38 !important}
-.text-info, .text-secondary-link{color:#D61D38 !important}
-.btn-ghost, .btn-link{color:#D61D38 !important}
-.dropdown-menu > .active > a{background-color:#D61D38 !important}
+.nav > li.active > a, .nav > li.active > a i{color:#7C5CFF !important}
+.text-info, .text-secondary-link{color:#7C5CFF !important}
+.btn-ghost, .btn-link{color:#7C5CFF !important}
+.dropdown-menu > .active > a{background-color:#7C5CFF !important}
 /* selection + misc accents */
-::selection{background:#D61D38;color:#fff}
+::selection{background:#7C5CFF;color:#fff}
