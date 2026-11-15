@@ -19,26 +19,29 @@ export function Nav() {
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 12));
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${scrolled || open ? "border-b border-white/10 bg-night/85 backdrop-blur-xl" : "border-b border-transparent"}`}>
-      <nav className="mx-auto flex h-16 max-w-page items-center justify-between px-5 md:px-8" aria-label="Main">
-        <a href="#top" aria-label="LMAIL home"><Logo /></a>
-        <ul className="hidden items-center gap-8 text-sm text-haze md:flex">
-          {links.map(([label, href]) => (
-            <li key={href}><a className="transition-colors hover:text-white" href={href}>{label}</a></li>
-          ))}
-        </ul>
-        <div className="flex items-center gap-3">
-          <a href={site.demoUrl} className="btn-primary !px-5 !py-2 !text-sm">Book a demo</a>
-          <button className="grid h-10 w-10 place-items-center rounded-full border border-white/20 md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
+    <header className={`sticky top-0 z-40 bg-white/90 backdrop-blur-xl transition-colors duration-300 ${scrolled || open ? "border-b border-line" : "border-b border-transparent"}`}>
+      <nav className="mx-auto flex h-[72px] max-w-page items-center justify-between gap-6 px-5 md:px-8" aria-label="Main">
+        <div className="flex items-center gap-10">
+          <a href="#top" aria-label="LMAIL home"><Logo /></a>
+          <ul className="hidden items-center gap-7 text-[15px] text-ink lg:flex">
+            {links.map(([label, href]) => (
+              <li key={href}><a className="transition-colors hover:text-blue" href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex items-center gap-2">
+          <a href={site.loginUrl} className="hidden rounded-lg px-4 py-2.5 text-[15px] font-medium text-ink underline-offset-4 hover:underline sm:block">Log in</a>
+          <a href={site.demoUrl} className="btn-primary !py-2.5">Get a demo</a>
+          <button className="grid h-11 w-11 place-items-center rounded-lg border border-line lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? <X size={18} /> : <List size={18} />}
           </button>
         </div>
       </nav>
       {open && (
-        <ul className="px-5 pb-5 md:hidden">
-          {links.map(([label, href]) => (
+        <ul className="px-5 pb-5 lg:hidden">
+          {[...links, ["Log in", site.loginUrl]].map(([label, href]) => (
             <li key={href}>
-              <a className="block border-t border-white/10 py-4 text-haze hover:text-white" href={href} onClick={() => setOpen(false)}>{label}</a>
+              <a className="block border-t border-line py-4 text-ink" href={href} onClick={() => setOpen(false)}>{label}</a>
             </li>
           ))}
         </ul>

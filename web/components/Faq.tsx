@@ -7,9 +7,10 @@ import { Reveal } from "./Reveal";
 const faqs = [
   ["What is LMAIL?", "An email marketing platform by Laib Studios. Store contacts, build segments, design emails, run automated campaigns and track results."],
   ["Do I need technical skills?", "No. We set up your account and sending domain with you. After that it is point, click and send."],
-  ["How does pricing work?", "It depends on how many contacts you have and how much you send. Book a demo and we will give you a clear quote."],
+  ["How does pricing work?", "It depends on how many contacts you have and how much you send. Get a demo and we will give you a clear quote."],
   ["Will my emails reach the inbox?", "Each account sends from its own domain with its own reputation, and new domains are warmed up gradually. That gives your email the best chance, though no platform can guarantee the inbox."],
   ["Can I use LMAIL for my own clients?", "Yes. Agencies can give each client a separate space and run it under their own brand."],
+  ["How does the AI writer work?", "In the email editor, press Write with AI and describe your email in a sentence or two. LMAIL drafts the subject line and the message. You review and edit it before anything is sent."],
 ];
 
 export function Faq() {
@@ -24,15 +25,15 @@ export function Faq() {
         {faqs.map(([q, a], i) => {
           const isOpen = open === i;
           return (
-            <div key={q} className="border-t border-white/10 last:border-b">
+            <div key={q} className="border-t border-line last:border-b">
               <button className="flex w-full items-center justify-between gap-6 py-6 text-left text-xl font-medium tracking-tight" aria-expanded={isOpen} aria-controls={`faq-${i}`} onClick={() => setOpen(isOpen ? null : i)}>
                 {q}
-                <Plus size={20} weight="bold" className={`shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45 text-lime" : "text-haze"}`} />
+                <Plus size={20} weight="bold" className={`shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45 text-blue" : "text-muted"}`} />
               </button>
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div id={`faq-${i}`} initial={reduce ? false : { height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={reduce ? undefined : { height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                    <p className="max-w-[60ch] pb-6 text-haze">{a}</p>
+                    <p className="max-w-[60ch] pb-6 text-muted">{a}</p>
                   </motion.div>
                 )}
               </AnimatePresence>

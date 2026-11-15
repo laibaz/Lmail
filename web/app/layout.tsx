@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: "https://lmail.laibstudios.com",
     siteName: "LMAIL",
     type: "website",
-    images: ["/app-contacts.webp"],
+    images: ["/app-home.webp"],
   },
 };
 

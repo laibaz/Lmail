@@ -10,19 +10,19 @@ const samples = [
     label: "Welcome email",
     prompt: "Welcome new subscribers to a coffee brand. Warm, short, with a 10% code.",
     subject: "Welcome to the morning club",
-    body: ["Hi Ayesha,", "You're in, and your mornings are about to get better.", "Here is 10% off your first bag: use WELCOME10 at checkout.", "Brew slow, sip happy."],
+    body: ["Hi Laiba,", "You're in, and your mornings are about to get better.", "Here is 10% off your first bag: use WELCOME10 at checkout.", "Brew slow, sip happy."],
   },
   {
     label: "Sale announcement",
     prompt: "Announce a weekend sale for a skincare shop. Clear and upbeat.",
     subject: "This weekend only: 20% off everything",
-    body: ["Hi Bilal,", "From Friday to Sunday, everything in the shop is 20% off.", "No code needed. The discount shows up in your basket.", "Stock up on your favourites before Monday."],
+    body: ["Hi Laiba,", "From Friday to Sunday, everything in the shop is 20% off.", "No code needed. The discount shows up in your basket.", "Stock up on your favourites before Monday."],
   },
   {
     label: "Win-back",
     prompt: "Bring back customers who have not ordered in 3 months. Friendly, no pressure.",
     subject: "It has been a while. Here is what is new",
-    body: ["Hi Sana,", "We have added a few things since your last order and thought of you.", "Take a look whenever you like. Your account is right where you left it.", "Hope to see you soon."],
+    body: ["Hi Laiba,", "We have added a few things since your last order and thought of you.", "Take a look whenever you like. Your account is right where you left it.", "Hope to see you soon."],
   },
 ];
 
@@ -32,15 +32,14 @@ export function AiWriter() {
   const s = samples[i];
 
   return (
-    <section id="ai" className="border-y border-white/10 bg-night-800">
+    <section id="ai" className="bg-soft">
       <div className="mx-auto grid max-w-page items-center gap-12 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-2 lg:gap-20">
         <Reveal>
-          <p className="flex items-center gap-2 text-sm font-medium text-lime"><Sparkle size={16} weight="fill" /> AI writer</p>
-          <h2 className="h-section mt-4 max-w-[14ch]">From one sentence to a ready email.</h2>
-          <p className="mt-5 max-w-[48ch] text-lg leading-relaxed text-haze">
+          <h2 className="h-section max-w-[14ch]">From one sentence to a ready email.</h2>
+          <p className="mt-5 max-w-[48ch] text-lg leading-relaxed text-muted">
             Say what you want to send. LMAIL drafts the subject line and the email in your tone, ready for you to edit.
           </p>
-          <p className="mt-4 max-w-[48ch] text-haze">The AI writer is in early access. Book a demo to try it.</p>
+          <p className="mt-4 flex max-w-[48ch] items-start gap-2 text-muted"><Sparkle size={18} weight="fill" className="mt-1 shrink-0 text-purple" /> Built into the email editor: press Write with AI, describe the email, and use the draft.</p>
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -48,16 +47,16 @@ export function AiWriter() {
             {samples.map((x, n) => (
               <button
                 key={x.label} role="tab" aria-selected={n === i} onClick={() => setI(n)}
-                className={`rounded-full border px-4 py-2 text-sm font-medium transition duration-200 active:scale-[0.98] ${n === i ? "border-lime bg-lime text-night" : "border-white/20 text-haze hover:border-white/50 hover:text-white"}`}
+                className={`rounded-lg border px-4 py-2 text-sm font-medium transition duration-200 active:scale-[0.98] ${n === i ? "border-ink bg-ink text-white" : "border-line bg-white text-muted hover:border-ink hover:text-ink"}`}
               >
                 {x.label}
               </button>
             ))}
           </div>
 
-          <div className="mt-5 rounded-2xl border border-white/10 bg-night p-5" role="tabpanel">
-            <p className="text-sm text-haze">You ask</p>
-            <p className="mt-1 text-mist">{s.prompt}</p>
+          <div className="mt-5 rounded-2xl border border-line bg-white p-5" role="tabpanel">
+            <p className="text-sm text-muted">You ask</p>
+            <p className="mt-1 text-ink">{s.prompt}</p>
 
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -66,17 +65,17 @@ export function AiWriter() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduce ? undefined : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-5 rounded-2xl bg-mist p-6 text-night"
+                className="mt-5 rounded-2xl bg-soft p-6 text-ink"
               >
-                <p className="text-sm text-night/60">Subject</p>
+                <p className="text-sm text-muted">Subject</p>
                 <p className="mt-1 text-lg font-semibold tracking-tight">{s.subject}</p>
-                <div className="mt-4 space-y-3 border-t border-night/10 pt-4 text-[15px] leading-relaxed">
+                <div className="mt-4 space-y-3 border-t border-line pt-4 text-[15px] leading-relaxed">
                   {s.body.map((line) => <p key={line}>{line}</p>)}
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
-          <p className="mt-3 text-sm text-haze">Sample drafts, shown as examples.</p>
+          <p className="mt-3 text-sm text-muted">Sample drafts, shown as examples.</p>
         </Reveal>
       </div>
     </section>

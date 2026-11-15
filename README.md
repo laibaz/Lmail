@@ -8,10 +8,11 @@ rebrand, demo data, and deployment scripts.
 
 ## Status
 
-- ✅ Runs locally with Docker, fully rebranded (logo, violet theme, favicon)
+- ✅ Runs locally with Docker, fully rebranded (new layout, logo, colours, favicon)
 - ✅ Production setup ready: HTTPS, passwords in `.env`, backups
 - ⏳ Not yet deployed — see [docs/DEPLOY.md](docs/DEPLOY.md)
-- 🗺️ Planned: one instance per client with isolated SES sending, AI email writing
+- ✅ AI email writer built into the email editor (needs an `ANTHROPIC_API_KEY`)
+- 🗺️ Planned: one instance per client with isolated SES sending, self-serve sign-up
 
 ## Run it locally
 
@@ -30,7 +31,8 @@ docker compose restart cron
 | `docker-compose.yml` | Database (MySQL 8), Mautic web app, and a dedicated cron container |
 | `docker-compose.prod.yml` | Production add-on: Caddy in front for automatic HTTPS |
 | `branding/` | LMAIL logos, favicon, mascot and theme CSS — see [branding/README.md](branding/README.md) |
-| `scripts/apply-branding.sh` | Applies the LMAIL rebrand to a running install (safe to re-run) |
+| `plugin/` | The LMAIL Mautic plugin: grouped menu, home screen and AI email writer. See [plugin/README.md](plugin/README.md) |
+| `scripts/apply-branding.sh` | Applies the LMAIL look and installs the plugin on a running install (safe to re-run) |
 | `scripts/backup.sh` | Backs up the database and Mautic files |
 | `emails/` | LMAIL email templates |
 | `demo/` | Fake demo contacts for testing |

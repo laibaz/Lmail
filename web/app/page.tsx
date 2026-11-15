@@ -1,5 +1,6 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
+import { Band } from "@/components/Band";
 import { Features } from "@/components/Features";
 import { AiWriter } from "@/components/AiWriter";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -13,6 +14,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <Band />
         <Features />
         <AiWriter />
         <HowItWorks />

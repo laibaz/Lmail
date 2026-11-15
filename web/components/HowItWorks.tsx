@@ -16,10 +16,10 @@ export function HowItWorks() {
       <ol className="mt-12">
         {steps.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.06}>
-            <li className="grid gap-3 border-t border-white/10 py-8 md:grid-cols-[auto_1fr_1fr] md:items-center md:gap-10">
-              <s.icon size={32} weight="duotone" className="text-violet-soft" />
-              <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">{s.title}</h3>
-              <p className="max-w-[48ch] text-haze">{s.body}</p>
+            <li className="grid gap-3 border-t border-line py-8 md:grid-cols-[auto_1fr_1fr] md:items-center md:gap-10">
+              <s.icon size={32} weight="duotone" className="text-purple" />
+              <h3 className="text-2xl font-medium tracking-tight md:text-3xl">{s.title}</h3>
+              <p className="max-w-[48ch] text-muted">{s.body}</p>
             </li>
           </Reveal>
         ))}
