@@ -53,6 +53,17 @@ docker compose exec -T "$SVC" sh -c "
   chown -R www-data:www-data $ROOT/media $ROOT/translations
 "
 
+echo "Telling the app it sits behind the HTTPS proxy..."
+# Without this, Mautic cannot see that visitors are already on HTTPS and redirects in a loop.
+# Only private (Docker network) addresses are trusted, i.e. the Caddy container in front of it.
+docker compose exec -T -u www-data "$SVC" php -r '
+  $f = "/var/www/html/config/local.php";
+  if (!is_file($f)) { exit(0); }
+  include $f;
+  $parameters["trusted_proxies"] = ["172.16.0.0/12", "10.0.0.0/8", "192.168.0.0/16", "127.0.0.1"];
+  file_put_contents($f, "<?php\n\$parameters = ".var_export($parameters, true).";\n");
+'
+
 echo "Installing the LMAIL plugin (menu, home screen, AI writer)..."
 docker compose exec -T "$SVC" mkdir -p "$ROOT/plugins/LmailBundle"
 docker compose cp plugin/LmailBundle/. "$SVC:$ROOT/plugins/LmailBundle/"
