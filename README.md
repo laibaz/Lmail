@@ -34,6 +34,7 @@ docker compose restart cron
 | `scripts/backup.sh` | Backs up the database and Mautic files |
 | `emails/` | LMAIL email templates |
 | `demo/` | Fake demo contacts for testing |
+| `web/` | The LMAIL landing page (Next.js) — deploys to Vercel, see [web/README.md](web/README.md) |
 | `docs/DEPLOY.md` | Step-by-step guide to putting LMAIL on a server |
 
 ## Lessons learned
