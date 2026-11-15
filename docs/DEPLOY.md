@@ -1,5 +1,12 @@
 # Deploying LMAIL
 
+> **Quick way:** on a fresh Ubuntu server, run the one-command setup. It does steps 3 and 6 below for you.
+>
+> ```bash
+> curl -fsSL https://raw.githubusercontent.com/laibaz/Lmail/main/scripts/server-setup.sh -o setup.sh
+> sudo bash setup.sh
+> ```
+
 Goal: LMAIL running at `https://app.laibstudios.com`, sending through Amazon SES.
 
 Steps marked 👩‍💻 need your accounts or payment details.
