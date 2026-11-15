@@ -5,6 +5,7 @@
 # Safe to run again — e.g. after a Mautic update regenerates app.css.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+trap 'echo; echo "!! apply-branding stopped at line $LINENO. Copy the lines above and send them to get help."' ERR
 
 SVC=${MAUTIC_SERVICE:-mautic}
 ROOT=/var/www/html/docroot
@@ -58,8 +59,8 @@ docker compose cp plugin/LmailBundle/. "$SVC:$ROOT/plugins/LmailBundle/"
 docker compose exec -T "$SVC" chown -R www-data:www-data "$ROOT/plugins/LmailBundle"
 # The plugin keeps its own copy of the Anthropic SDK, so Mautic's dependencies are not touched.
 docker compose exec -T -u www-data -w "$ROOT/plugins/LmailBundle" -e COMPOSER_HOME=/tmp/composer "$SVC" \
-  composer install --no-dev --no-interaction --no-progress --quiet
+  composer install --no-dev --no-interaction --no-progress
 docker compose exec -T "$SVC" sh -c "rm -rf /var/www/html/var/cache/prod /var/www/html/var/cache/dev 2>/dev/null || true"
-docker compose exec -T -u www-data -w /var/www/html "$SVC" php bin/console mautic:plugins:reload --quiet
-docker compose exec -T -u www-data -w /var/www/html "$SVC" php bin/console cache:clear --quiet
+docker compose exec -T -u www-data -w /var/www/html "$SVC" php bin/console mautic:plugins:reload
+docker compose exec -T -u www-data -w /var/www/html "$SVC" php bin/console cache:clear
 echo "Done. Hard-refresh the browser (Cmd+Shift+R) to see LMAIL."

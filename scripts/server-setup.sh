@@ -87,7 +87,7 @@ if [ "$NEED_INSTALL" -eq 1 ]; then
 fi
 
 echo "--- 6/6 Applying the LMAIL look and plugin..."
-./scripts/apply-branding.sh >/dev/null
+./scripts/apply-branding.sh 2>&1 | grep -vE 'Copying|Copied|copy [0-9]'
 
 # nightly backup at 03:00, keeps 14 days
 ( crontab -l 2>/dev/null | grep -v 'scripts/backup.sh'; echo "0 3 * * * cd $DIR && ./scripts/backup.sh >> $DIR/backups/backup.log 2>&1" ) | crontab -
