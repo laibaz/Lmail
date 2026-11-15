@@ -25,9 +25,16 @@ docker compose cp branding/lmail.css "$SVC:/tmp/lmail.css"
 docker compose cp branding/translations/overrides.ini "$SVC:/tmp/lmail-overrides.ini"
 docker compose exec -T "$SVC" sh -c "
   set -e
-  # remove any previous LMAIL block, then append the current one
-  sed -i '\#^/\* ==== LMAIL BRANDING START ==== \*/\$#,\#^/\* ==== LMAIL BRANDING END ==== \*/\$#d' '$CSS'
-  { echo '$START'; cat /tmp/lmail.css; echo; echo '$END'; } >> '$CSS'
+  # Remove everything LMAIL added before (from the first marker to the end of the file), then
+  # append the current theme. Mautic's app.css has no final line break, so the marker can sit
+  # in the middle of a line: cut by position, not by line.
+  php -r '
+    \$f = \$argv[1]; \$css = file_get_contents(\$f);
+    \$i = strpos(\$css, \"/* ==== LMAIL BRANDING START ==== */\");
+    if (\$i !== false) { \$css = substr(\$css, 0, \$i); }
+    \$css = rtrim(\$css).\"\n/* ==== LMAIL BRANDING START ==== */\n\".file_get_contents(\"/tmp/lmail.css\").\"\n/* ==== LMAIL BRANDING END ==== */\n\";
+    file_put_contents(\$f, \$css);
+  ' '$CSS'
   rm /tmp/lmail.css
 
   echo 'Renaming Mautic → LMAIL in interface text...'
