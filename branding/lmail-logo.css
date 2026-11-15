@@ -1,0 +1,4 @@
+
+/* LMAIL branding override */
+.mautic-logo-figure{display:none !important}
+.mautic-logo.img-circle{background:url('/media/images/lmail-logo.png') no-repeat center/contain;height:80px;width:auto;border-radius:0 !important}
