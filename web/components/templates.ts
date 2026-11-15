@@ -1,7 +1,8 @@
-// The starter email templates (built by scripts/build-email-templates.py, previews in public/templates/).
+// The showcase email templates (built by scripts/build-email-templates.py, previews in public/templates/).
+// "Solenne" is a made-up skincare brand used to show what a finished campaign looks like.
 export const templates = [
-  { slug: "welcome", name: "Welcome", use: "Greet new subscribers and tell them what happens next.", w: 1328, h: 1452 },
-  { slug: "newsletter", name: "Newsletter", use: "A regular update with a few short stories.", w: 1328, h: 1630 },
-  { slug: "sale", name: "Sale", use: "Announce an offer with a code and a clear deadline.", w: 1328, h: 1482 },
-  { slug: "product-launch", name: "Product launch", use: "Introduce something new and what it does.", w: 1328, h: 1412 },
+  { slug: "launch", name: "Product launch", use: "Introduce a new collection with photography and a product grid.", w: 1200, h: 3890 },
+  { slug: "welcome", name: "Welcome offer", use: "Greet new subscribers with a discount code.", w: 1200, h: 2684 },
+  { slug: "sale", name: "Sale", use: "Announce an offer with before and after prices.", w: 1200, h: 3054 },
+  { slug: "journal", name: "Newsletter", use: "Share a guide or story, step by step.", w: 1200, h: 3458 },
 ];

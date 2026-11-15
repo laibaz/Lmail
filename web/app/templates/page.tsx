@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Email templates | LMAIL", descriptio
 export default function Page() {
   return (
     <>
-      <PageHeader title="Email templates, ready to send." lead="Four starting points for the emails most businesses send. Change the words and colours, then send. The brands shown are examples." />
+      <PageHeader title="Email templates, ready to send." lead="Four campaign designs you can make your own. They are shown here with Solenne, a made-up skincare brand." />
       <TemplatesGrid />
       <CtaBand />
     </>

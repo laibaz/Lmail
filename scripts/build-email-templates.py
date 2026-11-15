@@ -1,63 +1,102 @@
 #!/usr/bin/env python3
-"""Builds the LMAIL starter email templates into emails/templates/.
+"""Builds the LMAIL showcase email templates into emails/templates/.
 
-Each template is plain table-based HTML with inline styles (what email apps need),
-uses the LMAIL palette, and carries Mautic tokens: {contactfield=firstname} and {unsubscribe_text}.
-The sample wording is placeholder content for an imaginary shop; replace it per client.
+The emails are for "Solenne", a made-up skincare brand, to show what a finished campaign
+looks like. They are table-based HTML with inline styles (what email apps need), stack into
+one column on phones, and carry the Mautic tokens {contactfield=firstname} and {unsubscribe_text}.
+Images are served from the LMAIL website (web/public/email-assets/).
 
     python3 scripts/build-email-templates.py
 """
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "emails" / "templates"
-INK, MUTED, LINE, SOFT = "#17172B", "#5F5C75", "#E6E2EE", "#F6F4FA"
-PINK, MAUVE, PURPLE, BLUE, TINT = "#DB82AF", "#A466A6", "#7458A0", "#244697", "#FBEEF4"
-FONT = "font-family:Arial,Helvetica,sans-serif;"
-GRAD = f"background-color:{PURPLE};background-image:linear-gradient(120deg,{PINK},{PURPLE} 55%,{BLUE});"
+IMG = "https://lmail.laibstudios.com/email-assets"
+
+PLUM, PLUM_DARK, ROSE, BLUSH, CREAM = "#4A2545", "#33182F", "#D9A5B8", "#F6E6EC", "#FBF6F3"
+INK, MUTED, LINE = "#2A1A28", "#6E5A6B", "#EADCE2"
+SANS = "font-family:Arial,Helvetica,sans-serif;"
+SERIF = "font-family:Georgia,'Times New Roman',serif;"
+
+HEAD = f'''<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @media only screen and (max-width:620px) {{
+    .wrap {{ width:100% !important; }}
+    .col {{ display:block !important; width:100% !important; padding-left:0 !important; padding-right:0 !important; }}
+    .pad {{ padding-left:24px !important; padding-right:24px !important; }}
+    .h1 {{ font-size:34px !important; }}
+    .big {{ font-size:54px !important; }}
+  }}
+</style>'''
 
 
-def row(inner, pad="0 40px", extra=""):
-    return f'<tr><td style="padding:{pad};{FONT}{extra}" align="left">{inner}</td></tr>'
+def img(name, alt, width=600, style=""):
+    return f'<img src="{IMG}/{name}.jpg" width="{width}" alt="{alt}" style="display:block;width:100%;max-width:{width}px;height:auto;border:0;{style}">'
 
 
-def button(label, color=BLUE, href="https://"):
-    return (f'<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background-color:{color};border-radius:8px;">'
-            f'<a href="{href}" style="display:inline-block;padding:14px 28px;{FONT}font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">{label}</a>'
+def btn(label, bg=PLUM, fg="#ffffff"):
+    return (f'<table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:{bg};border-radius:999px;">'
+            f'<a href="https://" style="display:inline-block;padding:15px 34px;{SANS}font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:{fg};text-decoration:none;">{label}</a>'
             f'</td></tr></table>')
 
 
-def p(text, size=16, color=MUTED, margin="0 0 16px 0"):
-    return f'<p style="margin:{margin};font-size:{size}px;line-height:1.6;color:{color};">{text}</p>'
+def header():
+    link = f'{SANS}font-size:11px;letter-spacing:2px;color:{ROSE};text-decoration:none;text-transform:uppercase;'
+    return (f'<tr><td style="background-color:{PLUM};padding:22px 32px;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            f'<td width="25%" align="left"><a href="https://" style="{link}">Shop</a></td>'
+            f'<td width="50%" align="center" style="{SERIF}font-size:26px;letter-spacing:8px;color:#ffffff;">SOLENNE</td>'
+            f'<td width="25%" align="right"><a href="https://" style="{link}">Journal</a></td>'
+            f'</tr></table></td></tr>')
 
 
-def h(text, size=28):
-    return f'<div style="font-size:{size}px;font-weight:bold;line-height:1.2;color:{INK};">{text}</div>'
+def footer():
+    link = f'color:{ROSE};text-decoration:none;'
+    return (f'<tr><td style="background-color:{PLUM_DARK};padding:36px 32px;{SANS}" align="center" class="pad">'
+            f'<div style="{SERIF}font-size:20px;letter-spacing:6px;color:#ffffff;">SOLENNE</div>'
+            f'<div style="margin-top:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;">'
+            f'<a href="https://" style="{link}">Shop</a> &nbsp;&nbsp; <a href="https://" style="{link}">Journal</a> &nbsp;&nbsp; <a href="https://" style="{link}">Help</a></div>'
+            f'<div style="margin-top:18px;font-size:12px;line-height:1.6;color:#B79CB2;">Solenne Skincare, 12 Garden Row<br>{{unsubscribe_text}}</div>'
+            f'</td></tr>')
 
 
-def brand(name, on_dark=False):
-    c = "#ffffff" if on_dark else INK
-    return f'<div style="font-size:17px;font-weight:bold;letter-spacing:1px;color:{c};">{name}</div>'
+def eyebrow(text, color=PLUM):
+    return f'<div style="{SANS}font-size:11px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:{color};">{text}</div>'
 
 
-def footer(name):
-    return (row(f'<div style="border-top:1px solid {LINE};"></div>', "8px 40px 0")
-            + row(f'<p style="margin:0;font-size:12px;line-height:1.6;color:#8A889C;">{name}<br>{{unsubscribe_text}}</p>', "20px 40px 32px"))
+def product(image, alt, name, note, price, was=None):
+    was_html = f' <span style="color:#A8909F;text-decoration:line-through;">{was}</span>' if was else ""
+    return (f'<td class="col" width="50%" valign="top" style="padding:0 8px 24px 8px;" align="center">'
+            f'{img(image, alt, 268, "border-radius:10px;")}'
+            f'<div style="margin-top:16px;{SERIF}font-size:20px;color:{INK};">{name}</div>'
+            f'<div style="margin-top:4px;{SANS}font-size:13px;color:{MUTED};">{note}</div>'
+            f'<div style="margin-top:8px;{SANS}font-size:15px;font-weight:bold;color:{INK};">{price}{was_html}</div>'
+            f'<div style="margin-top:14px;"><a href="https://" style="{SANS}font-size:12px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:{PLUM};text-decoration:underline;">Shop now</a></div>'
+            f'</td>')
+
+
+def products(was=False):
+    return (f'<tr><td style="padding:8px 24px 16px 24px;background-color:{CREAM};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            + product("solenne-serum", "Glow serum in a frosted glass bottle", "Rose Glow Serum", "Brightens overnight", "$38" if was else "$48", "$48" if was else None)
+            + product("solenne-cream", "Night cream in a frosted glass jar", "Cloud Night Cream", "Rich, never heavy", "$34" if was else "$42", "$42" if was else None)
+            + '</tr></table></td></tr>')
 
 
 def page(title, preheader, rows):
     return f'''<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+{HEAD}
 <title>{title}</title>
 </head>
-<body style="margin:0;padding:0;background-color:{SOFT};">
+<body style="margin:0;padding:0;background-color:{BLUSH};">
 <div style="display:none;max-height:0;overflow:hidden;">{preheader}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:{SOFT};">
-<tr><td align="center" style="padding:32px 16px;">
-<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#ffffff;border-radius:16px;overflow:hidden;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:{BLUSH};">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background-color:{CREAM};">
+{header()}
 {rows}
+{footer()}
 </table>
 </td></tr>
 </table>
@@ -66,78 +105,78 @@ def page(title, preheader, rows):
 '''
 
 
+def launch():
+    rows = (f'<tr><td>{img("solenne-hero", "Solenne bottles and a jar of cream on a pink surface")}</td></tr>'
+            f'<tr><td align="center" style="padding:44px 48px 36px 48px;background-color:{CREAM};" class="pad">{eyebrow("New arrival")}'
+            f'<div class="h1" style="margin-top:14px;{SERIF}font-size:44px;line-height:1.1;color:{INK};">The Glow Edit</div>'
+            f'<div style="margin:16px auto 28px auto;max-width:420px;{SANS}font-size:16px;line-height:1.6;color:{MUTED};">Four pieces for calm, bright skin. Made in small batches, with nothing you do not need.</div>'
+            f'{btn("Shop the edit")}</td></tr>'
+            + products()
+            + f'<tr><td>{img("solenne-hands", "Hands holding a bottle of Solenne serum")}</td></tr>'
+            f'<tr><td align="center" style="padding:36px 48px 44px 48px;background-color:{BLUSH};" class="pad">'
+            f'<div style="{SERIF}font-size:26px;line-height:1.3;color:{INK};">Two drops, every evening.</div>'
+            f'<div style="margin:12px auto 0 auto;max-width:400px;{SANS}font-size:15px;line-height:1.6;color:{MUTED};">Press the serum into clean skin and follow with the night cream.</div></td></tr>')
+    return page("The Glow Edit", "Four pieces for calm, bright skin.", rows)
+
+
 def welcome():
-    steps = "".join(
-        f'<tr><td style="padding:0 0 14px 0;vertical-align:top;width:44px;"><div style="width:32px;height:32px;border-radius:16px;background-color:{TINT};color:{MAUVE};{FONT}font-weight:bold;font-size:14px;line-height:32px;text-align:center;">{n}</div></td>'
-        f'<td style="padding:4px 0 14px 0;{FONT}font-size:15px;line-height:1.5;color:{MUTED};"><strong style="color:{INK};">{t}</strong><br>{d}</td></tr>'
-        for n, t, d in [("1", "Pick your favourites", "Browse the shop and save what you like."),
-                        ("2", "Get it delivered", "We roast on Mondays and ship the same week."),
-                        ("3", "Tell us what you think", "Reply to any email. A real person reads it.")])
-    rows = (f'<tr><td style="padding:36px 40px;{GRAD}{FONT}" align="left">{brand("MORNING CLUB", True)}'
-            f'<div style="margin-top:44px;font-size:34px;font-weight:bold;line-height:1.15;color:#ffffff;">Welcome, {{contactfield=firstname}}.</div>'
-            f'<div style="margin-top:10px;font-size:17px;line-height:1.5;color:#ffffff;">Glad you are here.</div></td></tr>'
-            + row(p("Thanks for joining Morning Club. Here is how it works:", margin="0 0 20px 0"), "32px 40px 0")
-            + row(f'<table role="presentation" cellpadding="0" cellspacing="0" width="100%">{steps}</table>')
-            + row(button("Visit the shop"), "8px 40px 32px")
-            + footer("Morning Club"))
-    return page("Welcome", "Thanks for joining. Here is how it works.", rows)
-
-
-def newsletter():
-    def item(tag, title, text):
-        return (f'<div style="font-size:12px;font-weight:bold;letter-spacing:1px;color:{MAUVE};text-transform:uppercase;">{tag}</div>'
-                f'<div style="margin:6px 0 6px 0;font-size:19px;font-weight:bold;line-height:1.3;color:{INK};">{title}</div>'
-                + p(text, 15, margin="0"))
-    rows = (row(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="{FONT}">{brand("THE STUDIO NOTE")}</td>'
-                f'<td align="right" style="{FONT}font-size:13px;color:{MUTED};">Monthly update</td></tr></table>', "28px 40px 20px")
-            + f'<tr><td style="padding:0 40px;"><div style="height:4px;border-radius:2px;{GRAD}font-size:0;line-height:0;">&nbsp;</div></td></tr>'
-            + row(p("Hi {contactfield=firstname},", color=INK, margin="0 0 10px 0") + h("Three things worth your time this month", 26), "28px 40px 8px")
-            + row(p("A short read: one idea, one update from us, and one thing we liked.", margin="0"), "8px 40px 24px")
-            + row(item("Idea", "Send fewer, better emails", "One useful email a week beats five forgettable ones. Here is how to plan it."), "0 40px 22px")
-            + row(f'<div style="border-top:1px solid {LINE};"></div>')
-            + row(item("From us", "New templates in your account", "Four ready-made designs you can fill in and send in minutes."), "22px 40px")
-            + row(f'<div style="border-top:1px solid {LINE};"></div>')
-            + row(item("We liked", "A subject line that worked", "Short, specific, and it said exactly what was inside."), "22px 40px 28px")
-            + row(button("Read the full note", INK), "0 40px 32px")
-            + footer("The Studio Note"))
-    return page("Newsletter", "Three things worth your time this month.", rows)
+    def perk(n, title, text):
+        return (f'<td class="col" width="33%" valign="top" align="center" style="padding:0 10px 20px 10px;">'
+                f'<div style="width:44px;height:44px;border-radius:22px;background-color:{PLUM};color:#ffffff;{SERIF}font-size:20px;line-height:44px;margin:0 auto;">{n}</div>'
+                f'<div style="margin-top:12px;{SANS}font-size:14px;font-weight:bold;color:{INK};">{title}</div>'
+                f'<div style="margin-top:4px;{SANS}font-size:13px;line-height:1.5;color:{MUTED};">{text}</div></td>')
+    rows = (f'<tr><td>{img("solenne-hands", "Hands holding a bottle of Solenne serum")}</td></tr>'
+            f'<tr><td align="center" style="padding:44px 48px 8px 48px;background-color:{CREAM};" class="pad">{eyebrow("Welcome")}'
+            f'<div class="h1" style="margin-top:14px;{SERIF}font-size:42px;line-height:1.12;color:{INK};">Hello, {{contactfield=firstname}}.</div>'
+            f'<div style="margin:16px auto 0 auto;max-width:430px;{SANS}font-size:16px;line-height:1.6;color:{MUTED};">Thank you for joining Solenne. Here is a little something for your first order.</div></td></tr>'
+            f'<tr><td align="center" style="padding:28px 48px 36px 48px;background-color:{CREAM};" class="pad">'
+            f'<table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center" style="padding:28px 20px;background-color:{BLUSH};border-radius:14px;">'
+            f'<div class="big" style="{SERIF}font-size:64px;line-height:1;color:{PLUM};">15% off</div>'
+            f'<div style="margin-top:12px;{SANS}font-size:13px;letter-spacing:2px;text-transform:uppercase;color:{MUTED};">with code</div>'
+            f'<div style="margin-top:8px;font-family:Courier New,Courier,monospace;font-size:24px;font-weight:bold;letter-spacing:4px;color:{INK};">HELLO15</div>'
+            f'</td></tr></table><div style="height:28px;line-height:28px;font-size:0;">&nbsp;</div>{btn("Start shopping")}</td></tr>'
+            f'<tr><td style="padding:12px 24px 24px 24px;background-color:{CREAM};border-top:1px solid {LINE};" class="pad"><div style="height:24px;line-height:24px;font-size:0;">&nbsp;</div>'
+            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            + perk("1", "Small batches", "Made fresh every month.") + perk("2", "Gentle formulas", "Fragrance free and tested.") + perk("3", "Easy returns", "30 days, no questions.")
+            + '</tr></table></td></tr>')
+    return page("Welcome to Solenne", "A little something for your first order.", rows)
 
 
 def sale():
-    rows = (row(brand("OAK &amp; LINEN"), "28px 40px 24px")
-            + f'<tr><td style="padding:0 24px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-              f'<td align="center" style="padding:44px 24px;border-radius:16px;background-color:{BLUE};{FONT}">'
-              f'<div style="font-size:14px;font-weight:bold;letter-spacing:2px;color:{PINK};">THIS WEEKEND ONLY</div>'
-              f'<div style="margin-top:10px;font-size:64px;font-weight:bold;line-height:1;color:#ffffff;">20% off</div>'
-              f'<div style="margin-top:10px;font-size:18px;color:#ffffff;">everything in the shop</div></td></tr></table></td></tr>'
-            + row(p("Hi {contactfield=firstname},", color=INK, margin="0 0 10px 0")
-                  + p("From Friday to Sunday, everything is 20% off. Use this code at checkout:"), "30px 40px 0")
-            + f'<tr><td style="padding:0 40px 24px 40px;" align="left"><table role="presentation" cellpadding="0" cellspacing="0"><tr>'
-              f'<td style="padding:14px 22px;border:2px dashed {MAUVE};border-radius:8px;background-color:{TINT};font-family:Courier New,Courier,monospace;font-size:22px;font-weight:bold;letter-spacing:3px;color:{INK};">WEEKEND20</td></tr></table></td></tr>'
-            + row(button("Shop the sale"), "0 40px 12px")
-            + row(p("Ends Sunday at midnight.", 13, margin="0"), "0 40px 30px")
-            + footer("Oak &amp; Linen"))
-    return page("Weekend sale", "20% off everything, this weekend only.", rows)
+    rows = (f'<tr><td align="center" style="padding:52px 32px 48px 32px;background-color:{PLUM};" class="pad">{eyebrow("The winter sale", ROSE)}'
+            f'<div class="big" style="margin-top:14px;{SERIF}font-size:76px;line-height:1;color:#ffffff;">20% off</div>'
+            f'<div style="margin-top:12px;{SERIF}font-size:24px;font-style:italic;color:{ROSE};">everything, this week only</div>'
+            f'<div style="height:28px;line-height:28px;font-size:0;">&nbsp;</div>{btn("Shop the sale", "#ffffff", PLUM)}</td></tr>'
+            f'<tr><td>{img("solenne-hero", "Solenne bottles and a jar of cream on a pink surface")}</td></tr>'
+            f'<tr><td align="center" style="padding:40px 48px 24px 48px;background-color:{CREAM};" class="pad">'
+            f'<div style="{SERIF}font-size:30px;line-height:1.2;color:{INK};">{{contactfield=firstname}}, your favourites are waiting.</div>'
+            f'<div style="margin:12px auto 0 auto;max-width:420px;{SANS}font-size:15px;line-height:1.6;color:{MUTED};">The discount is taken at checkout. Ends Sunday at midnight.</div></td></tr>'
+            + products(was=True))
+    return page("The Winter Sale", "20% off everything, this week only.", rows)
 
 
-def launch():
-    def feat(title, text):
-        return (f'<td width="50%" style="padding:0 8px 16px 8px;vertical-align:top;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-                f'<td style="padding:18px;border-radius:12px;background-color:{SOFT};{FONT}"><div style="font-size:16px;font-weight:bold;color:{INK};">{title}</div>'
-                f'<div style="margin-top:6px;font-size:14px;line-height:1.5;color:{MUTED};">{text}</div></td></tr></table></td>')
-    rows = (row(brand("FIELD NOTES APP"), "28px 40px 8px")
-            + row(f'<div style="display:inline-block;padding:6px 12px;border-radius:999px;background-color:{TINT};font-size:12px;font-weight:bold;letter-spacing:1px;color:{MAUVE};">NEW</div>'
-                  f'<div style="margin-top:16px;font-size:36px;font-weight:bold;line-height:1.12;color:{INK};">Shared notebooks are here</div>', "24px 40px 0")
-            + row(p("Hi {contactfield=firstname}, you asked for a way to work on notes together. From today you can invite anyone to a notebook.", 17, margin="0"), "16px 40px 26px")
-            + f'<tr><td style="padding:0 32px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-              + feat("Invite by email", "Add people in two clicks.") + feat("See who changed what", "Every edit is marked.") + '</tr><tr>'
-              + feat("Works offline", "Edits sync when you reconnect.") + feat("Included in your plan", "No extra cost.") + '</tr></table></td></tr>'
-            + row(button("Try shared notebooks", PURPLE), "12px 40px 32px")
-            + footer("Field Notes App"))
-    return page("Product launch", "Shared notebooks are here.", rows)
+def journal():
+    def step(n, image, alt, title, text, flip):
+        pic = f'<td class="col" width="44%" valign="middle" style="padding:0 12px;">{img(image, alt, 240, "border-radius:10px;")}</td>'
+        txt = (f'<td class="col" width="56%" valign="middle" style="padding:16px 12px;">'
+               f'<div style="{SERIF}font-size:44px;line-height:1;color:{ROSE};">{n}</div>'
+               f'<div style="margin-top:8px;{SERIF}font-size:22px;color:{INK};">{title}</div>'
+               f'<div style="margin-top:8px;{SANS}font-size:15px;line-height:1.6;color:{MUTED};">{text}</div></td>')
+        cells = txt + pic if flip else pic + txt
+        return f'<tr><td style="padding:0 20px 28px 20px;background-color:{CREAM};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>{cells}</tr></table></td></tr>'
+    rows = (f'<tr><td align="center" style="padding:44px 48px 36px 48px;background-color:{CREAM};" class="pad">{eyebrow("The journal")}'
+            f'<div class="h1" style="margin-top:14px;{SERIF}font-size:40px;line-height:1.15;color:{INK};">Your evening routine, in three steps</div>'
+            f'<div style="margin:16px auto 0 auto;max-width:430px;{SANS}font-size:16px;line-height:1.6;color:{MUTED};">Hi {{contactfield=firstname}}, five minutes before bed is all it takes.</div></td></tr>'
+            f'<tr><td>{img("solenne-hero", "Solenne bottles and a jar of cream on a pink surface")}</td></tr>'
+            f'<tr><td style="height:36px;line-height:36px;font-size:0;background-color:{CREAM};">&nbsp;</td></tr>'
+            + step("01", "solenne-serum", "Glow serum", "Start with serum", "Two drops on clean, dry skin. Press in, do not rub.", False)
+            + step("02", "solenne-cream", "Night cream", "Seal with cream", "A small scoop, warmed between your fingers first.", True)
+            + step("03", "solenne-hands", "Hands holding a bottle", "Give it a minute", "Let everything settle before your head hits the pillow.", False)
+            + f'<tr><td align="center" style="padding:12px 48px 48px 48px;background-color:{CREAM};" class="pad">{btn("Read the full guide")}</td></tr>')
+    return page("The Journal", "Five minutes before bed is all it takes.", rows)
 
 
-TEMPLATES = {"welcome": welcome, "newsletter": newsletter, "sale": sale, "product-launch": launch}
+TEMPLATES = {"launch": launch, "welcome": welcome, "sale": sale, "journal": journal}
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)

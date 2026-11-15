@@ -35,10 +35,10 @@ export function Explore() {
           </Card>
         </div>
         <div className="md:col-span-3">
-          <Card title="Templates ready to send" text="Welcome emails, newsletters, sales and launches. Pick one and make it yours." href="/templates" linkLabel="Browse templates" delay={0.08}>
+          <Card title="Templates ready to send" text="Launches, welcome offers, sales and newsletters. Pick one and make it yours." href="/templates" linkLabel="Browse templates" delay={0.08}>
             <div className="flex aspect-[4/3] items-start justify-center gap-5 overflow-hidden px-6 pt-8 sm:px-10 sm:pt-10">
-              <Image src="/templates/newsletter.webp" alt="Newsletter email template" width={1328} height={1630} sizes="240px" className="block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
-              <Image src="/templates/product-launch.webp" alt="Product launch email template" width={1328} height={1412} sizes="240px" className="mt-8 block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
+              <Image src="/templates/launch.webp" alt="Product launch email template" width={1200} height={3890} sizes="240px" className="block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
+              <Image src="/templates/sale.webp" alt="Sale email template" width={1200} height={3054} sizes="240px" className="mt-8 block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
             </div>
           </Card>
         </div>
