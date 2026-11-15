@@ -18,7 +18,7 @@ npm run dev      # http://localhost:3000
 
 ## Edit
 
-- Links ("Get a demo" booking page, "Log in" address): `components/site.ts`
+- Links (Calendly booking page, "Log in" address): `components/site.ts`
 - Text for each section: the matching file in `components/`
 - Colours and animations: `tailwind.config.ts`
 

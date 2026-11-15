@@ -6,7 +6,8 @@ import { AiWriter } from "@/components/AiWriter";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Inbox } from "@/components/Inbox";
 import { Faq } from "@/components/Faq";
-import { Cta, Footer } from "@/components/Cta";
+import { Demo } from "@/components/Demo";
+import { Footer } from "@/components/Cta";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
         <HowItWorks />
         <Inbox />
         <Faq />
-        <Cta />
+        <Demo />
       </main>
       <Footer />
     </>

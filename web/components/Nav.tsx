@@ -31,7 +31,7 @@ export function Nav() {
         </div>
         <div className="flex items-center gap-2">
           <a href={site.loginUrl} className="hidden rounded-lg px-4 py-2.5 text-[15px] font-medium text-ink underline-offset-4 hover:underline sm:block">Log in</a>
-          <a href={site.demoUrl} className="btn-primary !py-2.5">Get a demo</a>
+          <a href="#demo" className="btn-primary !py-2.5">Get a demo</a>
           <button className="grid h-11 w-11 place-items-center rounded-lg border border-line lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? <X size={18} /> : <List size={18} />}
           </button>

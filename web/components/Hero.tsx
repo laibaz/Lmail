@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { site } from "./site";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -27,7 +26,7 @@ export function Hero() {
             LMAIL writes with you, sends for you and keeps your sender reputation yours alone.
           </motion.p>
           <motion.div {...enter(0.2)} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href={site.demoUrl} className="btn-primary">Get a demo</a>
+            <a href="#demo" className="btn-primary">Get a demo</a>
             <a href="#features" className="btn-secondary">See features</a>
           </motion.div>
         </div>
