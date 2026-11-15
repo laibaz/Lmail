@@ -1,0 +1,19 @@
+
+/* ============ LMAIL round 5: undo the red-text flood ============ */
+/* ordinary links/text back to neutral dark */
+a, a span{color:#3f3f3f}
+a:hover, a:hover span{color:#D61D38}
+
+/* buttons: label text ALWAYS white, never inherited red */
+.btn-primary, .btn-primary *, .btn-primary span, .btn-primary i,
+button.btn-primary, .btn.btn-primary *{color:#ffffff !important}
+
+/* danger/secondary buttons keep their own text */
+.btn-default, .btn-default *{color:#3f3f3f !important}
+
+/* true accents stay red */
+.text-primary{color:#D61D38 !important}
+.pagination > .active > a{color:#fff !important}
+
+/* dropdown carets next to red links: match neutral */
+.caret, [class*="arrow-down"]{color:inherit}

@@ -10,7 +10,8 @@ Brand assets that turn the stock Mautic UI into LMAIL.
 | `lmail-icon.png` | 512×512 red "L" app icon |
 | `lmail-mascot.png` | LMAIL mascot |
 | `favicon.ico` | Browser tab icon (16×16, 32×32) |
-| `lmail-logo.css` | CSS override that hides the Mautic logo and shows `lmail-logo.png` |
+| `lmail.css` | **The full LMAIL theme** — all CSS rounds combined into one file |
+| `css-history/` | The original CSS rounds (logo, theme 1–7, modern pass), kept for reference |
 
 Brand red: `#D61D38` · Text black: `#0D0D0D`
 
@@ -18,6 +19,6 @@ Brand red: `#D61D38` · Text black: `#0D0D0D`
 
 - Images → `/var/www/html/docroot/media/images/` (the CSS expects `/media/images/lmail-logo.png`)
 - Favicon → `/var/www/html/docroot/favicon.ico`
+- Theme → `lmail.css` must be loaded on every Mautic page (it expects `lmail-logo.png` and `lmail-mascot.png` in `/media/images/`)
 
-TODO: document exactly how `lmail-logo.css` and the red theme are loaded
-into Mautic, so the rebrand can be reapplied on a fresh install.
+TODO: document exactly how the CSS was loaded into Mautic on the laptop build, so the rebrand can be reapplied on a fresh install.

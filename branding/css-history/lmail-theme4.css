@@ -1,0 +1,25 @@
+
+/* ============ LMAIL round 4: calm the sidebar back down ============ */
+/* sidebar: normal items back to dark gray */
+.nav-sidebar a, .nav-sidebar a span, .nav-sidebar a i,
+.nav-sidebar li a, .nav-sidebar li a span, .nav-sidebar li a i{
+  color:#3f3f3f !important;
+}
+/* sidebar: ONLY active item red */
+.nav-sidebar li.active > a, .nav-sidebar li.active > a span, .nav-sidebar li.active > a i,
+.nav > li.active > a, .nav > li.active > a span, .nav > li.active > a i{
+  color:#D61D38 !important;
+}
+/* sidebar hover: subtle red */
+.nav-sidebar li a:hover, .nav-sidebar li a:hover span, .nav-sidebar li a:hover i{
+  color:#B31730 !important;
+}
+/* purple/blue focus outline -> red */
+a:focus, button:focus, .nav a:focus, [tabindex]:focus{
+  outline-color:#D61D38 !important;
+}
+a:focus-visible, button:focus-visible{
+  outline:2px solid #D61D38 !important;
+}
+/* any remaining purple/indigo icon accents */
+.ri-focus-2-line, .icon-point, [class*="point"] i{color:inherit}

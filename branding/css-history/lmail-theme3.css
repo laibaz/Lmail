@@ -1,0 +1,15 @@
+
+/* ============ LMAIL round 3: kill remaining purples ============ */
+:root{
+  --brand:#D61D38; --primary:#D61D38; --link:#D61D38;
+  --color-primary:#D61D38; --link-color:#D61D38;
+}
+a, a span, .quick-filters, .quickfilters, [class*="quick-filter"]{color:#D61D38}
+a:hover{color:#B31730}
+.nav-sidebar li.active a, .nav-sidebar li.active a i, .nav-sidebar li.active a span,
+.nav > li.active > a, .nav > li.active > a i{color:#D61D38 !important}
+.text-info, .text-secondary-link{color:#D61D38 !important}
+.btn-ghost, .btn-link{color:#D61D38 !important}
+.dropdown-menu > .active > a{background-color:#D61D38 !important}
+/* selection + misc accents */
+::selection{background:#D61D38;color:#fff}

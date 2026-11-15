@@ -1,0 +1,7 @@
+
+/* ============ LMAIL round 7: our mascot takes the stage ============ */
+.mautibot-image img{
+  content:url('/media/images/lmail-mascot.png');
+  filter:none;
+  max-height:125px;
+}
