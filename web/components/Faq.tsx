@@ -2,12 +2,11 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Plus } from "@phosphor-icons/react";
-import { Reveal } from "./Reveal";
 
 const faqs = [
   ["What is LMAIL?", "An email marketing platform by Laib Studios. Store contacts, build segments, design emails, run automated campaigns and track results."],
   ["Do I need technical skills?", "No. We set up your account and sending domain with you. After that it is point, click and send."],
-  ["How does pricing work?", "It depends on how many contacts you have and how much you send. Get a demo and we will give you a clear quote."],
+  ["How does pricing work?", "It depends on how many contacts you have and how much you send. Book a demo and we will give you a clear quote."],
   ["Will my emails reach the inbox?", "Each account sends from its own domain with its own reputation, and new domains are warmed up gradually. That gives your email the best chance, though no platform can guarantee the inbox."],
   ["Can I use LMAIL for my own clients?", "Yes. Agencies can give each client a separate space and run it under their own brand."],
   ["How does the AI writer work?", "In the email editor, press Write with AI and describe your email in a sentence or two. LMAIL drafts the subject line and the message. You review and edit it before anything is sent."],
@@ -17,10 +16,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   const reduce = useReducedMotion();
   return (
-    <section id="faq" className="mx-auto grid max-w-page gap-10 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[1fr_2fr]">
-      <Reveal>
-        <h2 className="h-section lg:sticky lg:top-28">Questions, answered.</h2>
-      </Reveal>
+    <section className="mx-auto max-w-3xl px-5 pb-20 md:px-8 md:pb-28">
       <div>
         {faqs.map(([q, a], i) => {
           const isOpen = open === i;

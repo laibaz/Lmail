@@ -16,6 +16,13 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
+## Pages
+
+- `/` home, `/ai-writer`, `/templates`, `/how-it-works`, `/faq`, `/demo` (Calendly calendar)
+- Each page is a file in `app/<name>/page.tsx`; shared pieces are in `components/`
+- Founder photo: add a square image at `public/founder.jpg` and it replaces the initials on the home page
+- Email template previews in `public/templates/` come from `../emails/templates/` (built by `../scripts/build-email-templates.py`)
+
 ## Edit
 
 - Links (Calendly booking page, "Log in" address): `components/site.ts`

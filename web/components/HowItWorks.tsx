@@ -9,11 +9,8 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how" className="mx-auto max-w-page px-5 py-20 md:px-8 md:py-28">
-      <Reveal>
-        <h2 className="h-section">Sending in three moves.</h2>
-      </Reveal>
-      <ol className="mt-12">
+    <section className="mx-auto max-w-page px-5 pb-20 md:px-8 md:pb-28">
+      <ol>
         {steps.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.06}>
             <li className="grid gap-3 border-t border-line py-8 md:grid-cols-[auto_1fr_1fr] md:items-center md:gap-10">

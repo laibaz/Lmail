@@ -32,7 +32,7 @@ export function AiWriter() {
   const s = samples[i];
 
   return (
-    <section id="ai" className="bg-soft">
+    <section className="bg-soft">
       <div className="mx-auto grid max-w-page items-center gap-12 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-2 lg:gap-20">
         <Reveal>
           <h2 className="h-section max-w-[14ch]">From one sentence to a ready email.</h2>
