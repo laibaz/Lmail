@@ -27,7 +27,7 @@ class AiController
 You write marketing and lifecycle emails for small businesses using LMAIL, an email platform.
 
 Write the email the user describes. Keep it short and specific to their brief: a subject line,
-a preheader, a heading, two to four short paragraphs, and a button label.
+a preheader, a heading, an optional highlight, two to four short paragraphs, and a button label.
 
 Rules:
 - Start the first paragraph with a greeting that uses the token {contactfield=firstname} in place
@@ -36,6 +36,9 @@ Rules:
 - Only state facts given in the brief. Never invent prices, discounts, dates, statistics or
   product claims. If the brief lacks a detail the email needs, write around it.
 - No spam-style wording, no ALL CAPS, no misleading subject lines.
+- The highlight is shown very large above the heading. Use it only when the brief contains an
+  offer or one key figure, and copy it from the brief in at most four words, for example
+  "20% off" or "Free delivery". Otherwise use an empty string.
 - The button label is two to four words. Use an empty string if the email needs no button.
 - Do not write an unsubscribe line or a signature block; the template adds the footer.
 TXT;
@@ -61,6 +64,12 @@ TXT;
         $brief = trim((string) ($data['brief'] ?? ''));
         $tone  = trim((string) ($data['tone'] ?? 'Friendly'));
         $brand = trim((string) ($data['brand'] ?? ''));
+        $look  = [
+            'name'  => mb_substr($brand, 0, 120),
+            'color' => (string) ($data['color'] ?? ''),
+            'logo'  => (string) ($data['logo'] ?? ''),
+            'photo' => (string) ($data['photo'] ?? ''),
+        ];
 
         if ('' === $brief) {
             return $this->error('Tell the AI writer what the email is about.', 422);
@@ -97,10 +106,11 @@ TXT;
                                 'subject'    => ['type' => 'string'],
                                 'preheader'  => ['type' => 'string'],
                                 'heading'    => ['type' => 'string'],
+                                'highlight'  => ['type' => 'string'],
                                 'paragraphs' => ['type' => 'array', 'items' => ['type' => 'string']],
                                 'cta_label'  => ['type' => 'string'],
                             ],
-                            'required'             => ['subject', 'preheader', 'heading', 'paragraphs', 'cta_label'],
+                            'required'             => ['subject', 'preheader', 'heading', 'highlight', 'paragraphs', 'cta_label'],
                             'additionalProperties' => false,
                         ],
                     ],
@@ -143,12 +153,13 @@ TXT;
         $draft['paragraphs'] = array_values(array_filter(array_map('strval', (array) $draft['paragraphs'])));
         $draft['preheader']  = (string) ($draft['preheader'] ?? '');
         $draft['cta_label']  = (string) ($draft['cta_label'] ?? '');
+        $draft['highlight']  = mb_substr((string) ($draft['highlight'] ?? ''), 0, 40);
 
         return new JsonResponse([
             'subject'   => $draft['subject'],
             'preheader' => $draft['preheader'],
             'heading'   => $draft['heading'],
-            'html'      => $this->template->render($draft),
+            'html'      => $this->template->render($draft, $look),
             'plainText' => $draft['heading']."\n\n".implode("\n\n", $draft['paragraphs'])."\n\n{unsubscribe_text}",
         ]);
     }

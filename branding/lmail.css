@@ -473,6 +473,20 @@ body .nav-sidebar > ul.nav[data-lmail]{opacity:1}
 #app-content > .content-body, #app-content .page-list{animation:lmail-rise .28s ease-out both}
 @media (prefers-reduced-motion: reduce){ #app-content > .content-body, #app-content .page-list{animation:none} }
 
+/* ---- AI writer: brand fields ---- */
+.lmail-ai-section{margin:6px 0 12px;padding-top:16px;border-top:1px solid var(--lm-line);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lm-muted)}
+.lmail-ai-label{font-size:13px;font-weight:600;color:var(--lm-ink)}
+.lmail-ai-field small.is-error{color:#B3261E}
+.lmail-ai-field input.lmail-ai-color{height:44px;padding:4px;cursor:pointer}
+.lmail-ai-picker{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lmail-ai-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.lmail-ai-choose{margin:0;padding:10px 14px;border:1px solid var(--lm-line);border-radius:10px;background:#fff;font-size:14px;font-weight:500;color:var(--lm-ink);cursor:pointer}
+.lmail-ai-choose:hover{border-color:var(--lm-blue)}
+.lmail-ai-file:focus-visible + .lmail-ai-remove, .lmail-ai-choose:focus-within{outline:2px solid var(--lm-blue);outline-offset:2px}
+.lmail-ai-thumb{width:44px;height:44px;border-radius:8px;border:1px solid var(--lm-line);object-fit:contain;background:#fff}
+.lmail-ai-remove{padding:0;border:0;background:none;font-size:13px;color:var(--lm-muted);text-decoration:underline;cursor:pointer}
+.lmail-ai-remove:hover{color:#B3261E}
+
 /* ---- fixes ---- */
 .lmail-ai [hidden]{display:none !important}
 body .btn.lmail-ai-open, body .btn.lmail-ai-open *{color:#fff !important;opacity:1 !important}

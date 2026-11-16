@@ -8,9 +8,9 @@ survive Mautic updates. `scripts/apply-branding.sh` installs it.
 - **Menu:** regroups the sidebar into Home, Audience, Send and Measure. Everything else stays
   available under "More". (`Assets/js/lmail.js`)
 - **Home:** adds a greeting and three quick actions above the dashboard.
-- **AI email writer:** a "Write with AI" button in the email editor. You describe the email,
-  it returns a subject line and a finished email in the LMAIL design, and one click fills the
-  editor. (`Controller/AiController.php`, `Service/EmailTemplate.php`)
+- **AI email writer:** a "Write with AI" button in the email editor. You describe the email and
+  give your business name, brand colour and logo (remembered in the browser), plus an optional
+  photo. It returns a subject line and a finished, branded email, and one click fills the editor. (`Controller/AiController.php`, `Service/EmailTemplate.php`)
 
 ## AI writer setup
 
@@ -26,4 +26,5 @@ Each draft is one API request, billed to that key.
 
 Safeguards: only logged-in users who may create emails can use it, requests need Mautic's
 CSRF token, the brief is limited to 2,000 characters, and the AI is told not to invent
-prices, dates or claims. The layout comes from `EmailTemplate.php`, so the AI only writes words.
+prices, dates or claims. The layout comes from `EmailTemplate.php`, so the AI only writes words. Brand colour must be a
+hex colour and images must be http(s) addresses; anything else is ignored.

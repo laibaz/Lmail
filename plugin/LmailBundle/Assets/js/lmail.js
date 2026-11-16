@@ -115,19 +115,87 @@
   /* ---------- 3. AI email writer ---------- */
   var TONES = ['Friendly', 'Professional', 'Playful', 'Urgent', 'Warm and personal'];
 
+  var BRAND_KEY = 'lmail.brand';
+  function loadBrand() {
+    try { return JSON.parse(localStorage.getItem(BRAND_KEY) || '{}') || {}; } catch (e) { return {}; }
+  }
+  function saveBrand(brand) {
+    try { localStorage.setItem(BRAND_KEY, JSON.stringify(brand)); } catch (e) { /* storage is optional */ }
+  }
+
+  // Uploads one image through Mautic's own media upload and returns its address.
+  function uploadImage(file) {
+    var data = new FormData();
+    data.append('files[]', file);
+    return fetch('/s/grapesjsbuilder/upload', {
+      method: 'POST', credentials: 'same-origin', body: data,
+      headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-Token': window.mauticAjaxCsrf || '' }
+    }).then(function (r) {
+      if (!r.ok) throw new Error('That image could not be uploaded. Use a JPG or PNG under 2 MB.');
+      return r.json();
+    }).then(function (res) {
+      var url = res && res.data && res.data[0];
+      if (!url) throw new Error('That image could not be uploaded. Use a JPG or PNG under 2 MB.');
+      return url;
+    });
+  }
+
+  // A small "choose image" control with a preview and a remove button.
+  function imagePicker(id, label, hint, initial, onChange) {
+    var url = initial || '';
+    var input = el('input', { type: 'file', id: id, accept: 'image/png,image/jpeg,image/gif,image/webp', class: 'lmail-ai-file' });
+    var choose = el('label', { for: id, class: 'lmail-ai-choose', text: 'Choose image' });
+    var thumb = el('img', { alt: '', class: 'lmail-ai-thumb' });
+    var remove = el('button', { type: 'button', class: 'lmail-ai-remove', text: 'Remove' });
+    var note = el('small', { text: hint });
+    function paint() {
+      thumb.hidden = !url; remove.hidden = !url;
+      if (url) thumb.src = url;
+      choose.textContent = url ? 'Change image' : 'Choose image';
+    }
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      note.className = ''; note.textContent = 'Uploading...';
+      uploadImage(file).then(function (u) { url = u; note.textContent = hint; onChange(url); paint(); })
+        .catch(function (err) { note.className = 'is-error'; note.textContent = err.message; })
+        .then(function () { input.value = ''; });
+    });
+    remove.addEventListener('click', function () { url = ''; onChange(''); paint(); });
+    paint();
+    return {
+      node: el('div', { class: 'lmail-ai-field' }, [
+        el('span', { class: 'lmail-ai-label', text: label }),
+        el('div', { class: 'lmail-ai-picker' }, [thumb, choose, input, remove]),
+        note
+      ]),
+      value: function () { return url; }
+    };
+  }
+
   function aiModal() {
     var existing = document.getElementById('lmail-ai');
     if (existing) { existing.classList.add('is-open'); existing.querySelector('textarea').focus(); return; }
 
+    var saved = loadBrand();
     var brief = el('textarea', { id: 'lmail-ai-brief', rows: '4', maxlength: '2000', placeholder: 'e.g. Welcome new subscribers to my bakery and tell them we bake fresh every morning.' });
     var tone = el('select', { id: 'lmail-ai-tone' }, TONES.map(function (t) { return el('option', { value: t, text: t }); }));
     var brand = el('input', { id: 'lmail-ai-brand', type: 'text', maxlength: '120', placeholder: 'Your business name' });
+    brand.value = saved.name || '';
+    var color = el('input', { id: 'lmail-ai-color', type: 'color', class: 'lmail-ai-color' });
+    color.value = /^#[0-9a-fA-F]{6}$/.test(saved.color || '') ? saved.color : '#244697';
+    var logo = imagePicker('lmail-ai-logo', 'Logo', 'Shown at the top of every email. Saved for next time.', saved.logo, remember);
+    var photo = imagePicker('lmail-ai-photo', 'Photo (optional)', 'A wide picture for the top of this email.', '', function () {});
     var status = el('p', { class: 'lmail-ai-status', role: 'status', 'aria-live': 'polite' });
     var preview = el('div', { class: 'lmail-ai-preview', hidden: 'hidden' });
     var go = el('button', { type: 'button', class: 'btn btn-primary lmail-ai-go', text: 'Write my email' });
     var use = el('button', { type: 'button', class: 'btn btn-primary lmail-ai-use', text: 'Use this draft', hidden: 'hidden' });
     var close = el('button', { type: 'button', class: 'lmail-ai-close', 'aria-label': 'Close', html: '&times;' });
     var draft = null;
+
+    function remember() { saveBrand({ name: brand.value.trim(), color: color.value, logo: logo.value() }); }
+    brand.addEventListener('change', remember);
+    color.addEventListener('change', remember);
 
     function field(label, forId, input, hint) {
       return el('div', { class: 'lmail-ai-field' }, [
@@ -141,7 +209,10 @@
         el('p', { class: 'lmail-ai-kicker', html: '<i class="ri-sparkling-2-fill"></i> AI writer' }),
         el('h2', { id: 'lmail-ai-title', text: 'What is this email about?' }),
         field('Describe your email', 'lmail-ai-brief', brief, 'Include any offer, date or detail you want mentioned. The AI will not make facts up.'),
-        el('div', { class: 'lmail-ai-row' }, [field('Tone', 'lmail-ai-tone', tone), field('Sender name (optional)', 'lmail-ai-brand', brand)]),
+        el('div', { class: 'lmail-ai-row' }, [field('Tone', 'lmail-ai-tone', tone), field('Brand colour', 'lmail-ai-color', color)]),
+        el('p', { class: 'lmail-ai-section', text: 'Your brand' }),
+        field('Business name', 'lmail-ai-brand', brand),
+        el('div', { class: 'lmail-ai-row' }, [logo.node, photo.node]),
         status,
         el('div', { class: 'lmail-ai-actions' }, [go, use])
       ]),
@@ -158,6 +229,7 @@
     go.addEventListener('click', function () {
       var text = brief.value.trim();
       if (!text) { status.textContent = 'Tell the AI writer what the email is about.'; status.className = 'lmail-ai-status is-error'; brief.focus(); return; }
+      remember();
       go.disabled = true; use.hidden = true;
       go.textContent = 'Writing...';
       status.className = 'lmail-ai-status'; status.textContent = 'This usually takes a few seconds.';
@@ -166,7 +238,7 @@
       fetch('/s/lmail/ai/draft', {
         method: 'POST', credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-Token': window.mauticAjaxCsrf || '' },
-        body: JSON.stringify({ brief: text, tone: tone.value, brand: brand.value })
+        body: JSON.stringify({ brief: text, tone: tone.value, brand: brand.value, color: color.value, logo: logo.value(), photo: photo.value() })
       }).then(function (r) {
         return r.json().catch(function () { return { error: 'The AI writer returned an unexpected response.' }; })
           .then(function (data) { return { ok: r.ok, data: data }; });
@@ -177,7 +249,10 @@
         preview.appendChild(el('p', { class: 'lmail-ai-subject-label', text: 'Subject' }));
         preview.appendChild(el('p', { class: 'lmail-ai-subject', text: draft.subject }));
         var frame = el('iframe', { title: 'Email preview', sandbox: '' });
-        frame.srcdoc = draft.html;
+        // In the preview only, show the merge fields the way a subscriber would see them.
+        frame.srcdoc = draft.html
+          .replace(/\{contactfield=firstname\}/g, cfg.firstName || 'there')
+          .replace(/\{unsubscribe_text\}/g, 'Unsubscribe');
         preview.appendChild(frame);
         status.textContent = 'Here is your draft. You can edit everything after you use it.';
         go.textContent = 'Try again';
