@@ -8,9 +8,9 @@ import { bySlug } from "./templates";
 // Motion shows the range of designs without making anyone click through them.
 // It pauses on hover and stays still for people who prefer reduced motion.
 const columns: { slugs: string[]; seconds: number; reverse?: boolean; hideBelow?: string }[] = [
-  { slugs: ["launch", "northside-welcome"], seconds: 70 },
-  { slugs: ["northside-race", "sale", "northside-plan"], seconds: 86, reverse: true },
-  { slugs: ["welcome", "journal"], seconds: 76, hideBelow: "hidden md:block" },
+  { slugs: ["stem-bouquet", "kiln-class", "welcome", "north-stock"], seconds: 80 },
+  { slugs: ["north-service", "launch", "kiln-friday"], seconds: 96, reverse: true },
+  { slugs: ["journal", "stem-wreath", "sale"], seconds: 88, hideBelow: "hidden md:block" },
 ];
 
 function Column({ slugs, seconds, reverse, hideBelow = "" }: { slugs: string[]; seconds: number; reverse?: boolean; hideBelow?: string }) {
@@ -40,7 +40,7 @@ export function Gallery() {
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className="h-section max-w-[16ch]">Emails people are glad to open.</h2>
-            <p className="mt-4 max-w-[50ch] text-lg text-muted">Different brands, different styles, all built in LMAIL.</p>
+            <p className="mt-4 max-w-[50ch] text-lg text-muted">Four businesses, four styles, all built in LMAIL.</p>
           </div>
           <Link href="/templates" className="inline-flex w-fit items-center gap-1.5 border-b border-ink pb-1 font-medium text-ink transition-colors hover:border-blue hover:text-blue">
             See every template <ArrowUpRight size={16} weight="bold" />

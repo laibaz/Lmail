@@ -21,9 +21,6 @@ export function Hero() {
   );
   const enter = (delay: number) => ({ initial: reduce ? false : { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay, ease } });
 
-  // Email cards float beside the app: a slow, small bob, each on its own rhythm.
-  const float = (seconds: number, delay: number) => (reduce ? {} : { animate: { y: [0, -10, 0] }, transition: { duration: seconds, delay, repeat: Infinity, ease: "easeInOut" as const } });
-
   return (
     <section id="top" className="relative overflow-hidden">
       {/* soft brand glow behind the product picture */}
@@ -45,28 +42,13 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <motion.div style={{ y: drift }} className="relative mx-auto w-full max-w-[720px] pb-10 pl-8 sm:pl-14">
+        <motion.div style={{ y: drift }} className="relative mx-auto w-full max-w-[720px]">
           <motion.div initial={reduce ? false : { opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25, ease }}>
             <div className="rounded-[28px] border-[10px] border-ink bg-ink shadow-[0_40px_80px_-40px_rgba(23,23,43,0.5)]">
               <Image src="/app-home.webp" alt="The LMAIL home screen with a greeting, quick actions and a contacts chart" width={2560} height={1600} priority sizes="(min-width: 1024px) 50vw, 100vw" className="block h-auto w-full rounded-[18px]" />
             </div>
           </motion.div>
 
-          {/* two real emails made in LMAIL, floating over the corners */}
-          <motion.div className="absolute bottom-0 left-0 w-[30%]" initial={reduce ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease }}>
-            <motion.div {...float(7, 0)} className="overflow-hidden rounded-2xl border-[5px] border-white shadow-[0_30px_60px_-25px_rgba(23,23,43,0.6)]">
-              <div className="aspect-[3/4] overflow-hidden">
-                <Image src="/templates/welcome-m.webp" alt="A welcome email with a discount code, made in LMAIL" width={732} height={2796} sizes="220px" className="block h-auto w-full" />
-              </div>
-            </motion.div>
-          </motion.div>
-          <motion.div className="absolute -right-2 -top-8 hidden w-[24%] sm:block" initial={reduce ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.75, ease }}>
-            <motion.div {...float(8.5, 1.2)} className="overflow-hidden rounded-2xl border-[5px] border-white shadow-[0_30px_60px_-25px_rgba(23,23,43,0.6)]">
-              <div className="aspect-[3/4] overflow-hidden">
-                <Image src="/templates/northside-race-m.webp" alt="An event reminder email for a running club, made in LMAIL" width={732} height={2150} sizes="180px" className="block h-auto w-full" />
-              </div>
-            </motion.div>
-          </motion.div>
         </motion.div>
       </div>
     </section>

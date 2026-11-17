@@ -2,7 +2,8 @@
 """Builds the LMAIL showcase email templates into emails/templates/.
 
 The emails are for made-up brands, to show what finished campaigns look like: "Solenne"
-(skincare, with photography) and "Northside Run Club" (bold type and colour, no photos). They are table-based HTML with inline styles (what email apps need), stack into
+(skincare, with photography), and graphic emails for Kiln Street Bakery, Wild Stem Florist and
+Northbound Cycles (colour, shape and type, no photos). They are table-based HTML with inline styles (what email apps need), stack into
 one column on phones, and carry the Mautic tokens {contactfield=firstname} and {unsubscribe_text}.
 Images are served from the LMAIL website (web/public/email-assets/).
 
@@ -178,46 +179,38 @@ def journal():
 
 
 # ---------------------------------------------------------------------------
-# Northside Run Club: a made-up running club. Bold type and colour, no photos.
+# Graphic emails for three made-up small businesses. No photos: colour, shape and type.
+# They use the LMAIL palette so they sit comfortably next to each other and on the website.
 # ---------------------------------------------------------------------------
-N_BLACK, N_LIME, N_GREY, N_PAPER, N_MUTED = "#0E0F0C", "#D7FF3D", "#1B1D17", "#F4F5EF", "#9BA08F"
-IMPACT = "font-family:'Arial Black',Impact,'Helvetica Neue',Arial,sans-serif;font-weight:900;"
+G_PINK, G_MAUVE, G_PURPLE, G_BLUE, G_NAVY = "#DB82AF", "#A466A6", "#7458A0", "#244697", "#1A3472"
+G_BLUSH, G_SKY, G_CREAM, G_INK, G_MUTED = "#FBEEF4", "#DCE6FA", "#FFFBF7", "#17172B", "#5F5C75"
+DISPLAY = "font-family:Georgia,'Times New Roman',serif;font-weight:bold;"
 
 
-def n_btn(label, bg=N_LIME, fg=N_BLACK):
-    return (f'<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background-color:{bg};">'
-            f'<a href="https://" style="display:inline-block;padding:16px 30px;{SANS}font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:{fg};text-decoration:none;">{label} &rarr;</a>'
+def g_pill(label, bg, fg):
+    return (f'<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background-color:{bg};border-radius:999px;">'
+            f'<a href="https://" style="display:inline-block;padding:14px 28px;{SANS}font-size:14px;font-weight:bold;color:{fg};text-decoration:none;">{label}</a>'
             f'</td></tr></table>')
 
 
-def n_header():
-    return (f'<tr><td style="background-color:{N_BLACK};padding:22px 32px;border-bottom:1px solid #2A2D22;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-            f'<td align="left" style="{IMPACT}font-size:20px;letter-spacing:1px;color:#ffffff;">NORTHSIDE<span style="color:{N_LIME};">/</span>RC</td>'
-            f'<td align="right" style="{SANS}font-size:11px;letter-spacing:2px;text-transform:uppercase;color:{N_MUTED};">Run club</td>'
-            f'</tr></table></td></tr>')
+def g_circle(size, color, margin):
+    """A circle that sits partly outside its strip, so only an arc shows."""
+    return f'<div style="display:inline-block;width:{size}px;height:{size}px;border-radius:50%;background-color:{color};margin:{margin};"></div>'
 
 
-def n_footer():
-    return (f'<tr><td style="background-color:{N_BLACK};padding:32px;border-top:1px solid #2A2D22;{SANS}" class="pad">'
-            f'<div style="{IMPACT}font-size:16px;letter-spacing:1px;color:#ffffff;">NORTHSIDE<span style="color:{N_LIME};">/</span>RC</div>'
-            f'<div style="margin-top:12px;font-size:12px;line-height:1.6;color:{N_MUTED};">Northside Run Club, 4 Canal Street<br>{{unsubscribe_text}}</div></td></tr>')
-
-
-def n_page(title, preheader, rows, bg=N_BLACK):
+def g_page(title, preheader, rows, outer, card):
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 {HEAD}
 <title>{title}</title>
 </head>
-<body style="margin:0;padding:0;background-color:#000000;">
+<body style="margin:0;padding:0;background-color:{outer};">
 <div style="display:none;max-height:0;overflow:hidden;">{preheader}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#000000;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:{outer};">
 <tr><td align="center" style="padding:24px 12px;">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background-color:{bg};">
-{n_header()}
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background-color:{card};">
 {rows}
-{n_footer()}
 </table>
 </td></tr>
 </table>
@@ -226,66 +219,109 @@ def n_page(title, preheader, rows, bg=N_BLACK):
 """
 
 
-def n_race():
-    def fact(top, bottom):
-        return (f'<td class="col" width="33%" valign="top" style="padding:0 0 16px 0;">'
-                f'<div style="{SANS}font-size:11px;letter-spacing:2px;text-transform:uppercase;color:{N_MUTED};">{top}</div>'
-                f'<div style="margin-top:6px;{IMPACT}font-size:22px;color:#ffffff;">{bottom}</div></td>')
-    rows = (f'<tr><td style="padding:48px 32px 12px 32px;background-color:{N_BLACK};" class="pad">'
-            f'<div style="{SANS}font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:{N_LIME};">Sunday 10K</div>'
-            f'<div class="big" style="margin-top:14px;{IMPACT}font-size:88px;line-height:.92;letter-spacing:-2px;color:#ffffff;">RACE<br>DAY<br><span style="color:{N_LIME};">IS ON.</span></div></td></tr>'
-            f'<tr><td style="padding:22px 32px 30px 32px;background-color:{N_BLACK};{SANS}font-size:17px;line-height:1.6;color:#D6D9CC;" class="pad">'
-            f'{{contactfield=firstname}}, your place is saved. Here is everything you need for Sunday.</td></tr>'
-            f'<tr><td style="padding:26px 32px 10px 32px;background-color:{N_GREY};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-            + fact("Start", "8:00 am") + fact("Meet", "Canal Bridge") + fact("Distance", "10 km")
+def g_foot(name, address, bg, fg, sub):
+    return (f'<tr><td style="padding:28px 40px 34px 40px;background-color:{bg};{SANS}" class="pad">'
+            f'<div style="font-size:14px;font-weight:bold;color:{fg};">{name}</div>'
+            f'<div style="margin-top:6px;font-size:12px;line-height:1.6;color:{sub};">{address}<br>{{unsubscribe_text}}</div></td></tr>')
+
+
+def kiln_class():
+    def row_(k, v):
+        return (f'<tr><td style="padding:14px 0;border-top:1px solid #EFE3E9;{SANS}font-size:13px;letter-spacing:1px;text-transform:uppercase;color:{G_MAUVE};" width="34%">{k}</td>'
+                f'<td style="padding:14px 0;border-top:1px solid #EFE3E9;{SANS}font-size:16px;color:{G_INK};">{v}</td></tr>')
+    rows = (f'<tr><td style="height:12px;line-height:12px;font-size:0;background-color:{G_PINK};">&nbsp;</td></tr>'
+            f'<tr><td style="padding:40px 40px 0 40px;{SANS}font-size:13px;font-weight:bold;letter-spacing:1px;color:{G_PINK};" class="pad">Saturday class</td></tr>'
+            f'<tr><td style="padding:18px 40px 0 40px;" class="pad"><div class="h1" style="{DISPLAY}font-size:52px;line-height:1.05;color:{G_INK};">Bake your first sourdough</div>'
+            f'<div style="margin-top:22px;width:64px;height:5px;border-radius:3px;background-color:{G_PINK};font-size:0;line-height:0;">&nbsp;</div></td></tr>'
+            f'<tr><td style="padding:22px 40px 8px 40px;{SANS}font-size:17px;line-height:1.6;color:{G_MUTED};" class="pad">Hi {{contactfield=firstname}}, three hours, eight places, and one loaf to take home. No experience needed.</td></tr>'
+            f'<tr><td style="padding:14px 40px 8px 40px;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
+            + row_("When", "Saturday, 9 am to 12 noon") + row_("Where", "The bakery, Kiln Street") + row_("Bring", "An apron and a container")
+            + f'</table></td></tr>'
+            f'<tr><td style="padding:26px 40px 44px 40px;" class="pad">{g_pill("Save a place", G_PINK, G_INK)}</td></tr>'
+            + g_foot("Kiln Street Bakery", "18 Kiln Street", G_BLUSH, G_INK, G_MUTED))
+    return g_page("Bake your first sourdough", "Three hours, eight places, one loaf to take home.", rows, G_BLUSH, G_CREAM)
+
+
+def kiln_friday():
+    rows = (f'<tr><td style="background-color:{G_PINK};"><div style="height:150px;overflow:hidden;text-align:right;">{g_circle(260, G_BLUSH, "-110px -70px 0 0")}</div></td></tr>'
+            f'<tr><td style="padding:0 40px 0 40px;background-color:{G_PINK};" class="pad"><span style="display:inline-block;padding:6px 14px;border:2px solid {G_INK};border-radius:999px;{SANS}font-size:12px;font-weight:bold;color:{G_INK};">Every Friday</span></td></tr>'
+            f'<tr><td style="padding:20px 40px 0 40px;background-color:{G_PINK};" class="pad"><div class="h1" style="{DISPLAY}font-size:54px;line-height:1.03;color:{G_INK};">Fresh loaves,<br>at your door</div></td></tr>'
+            f'<tr><td style="padding:20px 40px 0 40px;background-color:{G_PINK};{SANS}font-size:17px;line-height:1.6;color:{G_INK};" class="pad">{{contactfield=firstname}}, join the bread club and we will deliver a warm loaf every Friday morning. Pause or stop any time.</td></tr>'
+            f'<tr><td style="padding:28px 40px 48px 40px;background-color:{G_PINK};" class="pad">{g_pill("Join the bread club", G_INK, "#ffffff")}</td></tr>'
+            + g_foot("Kiln Street Bakery", "18 Kiln Street", G_CREAM, G_INK, G_MUTED))
+    return g_page("Fresh loaves, at your door", "A warm loaf delivered every Friday morning.", rows, G_BLUSH, G_PINK)
+
+
+def stem_bouquet():
+    rows = (f'<tr><td style="background-color:{G_PINK};"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed;width:100%;"><tr>'
+            f'<td style="height:190px;overflow:hidden;vertical-align:bottom;"><div style="height:190px;overflow:hidden;">{g_circle(420, G_PURPLE, "40px 0 0 -90px")}</div></td>'
+            f'<td width="34%" style="height:190px;vertical-align:middle;" align="center">{g_circle(96, "#ffffff", "0")}</td></tr></table></td></tr>'
+            f'<tr><td style="padding:34px 40px 0 40px;background-color:{G_PURPLE};{SANS}font-size:13px;letter-spacing:1px;color:#E9DDF5;" class="pad">Mother&#39;s Day</td></tr>'
+            f'<tr><td style="padding:14px 40px 0 40px;background-color:{G_PURPLE};" class="pad"><div class="h1" style="{SANS}font-size:50px;font-weight:bold;line-height:1.05;letter-spacing:-1px;color:#ffffff;">Hand-tied bouquets, 15% off</div></td></tr>'
+            f'<tr><td style="padding:18px 40px 0 40px;background-color:{G_PURPLE};{SANS}font-size:17px;line-height:1.6;color:#F1E9FA;" class="pad">{{contactfield=firstname}}, order by 2 May and we deliver between 7 and 10 May.</td></tr>'
+            f'<tr><td style="padding:24px 40px 0 40px;background-color:{G_PURPLE};" class="pad"><table role="presentation" cellpadding="0" cellspacing="0"><tr>'
+            f'<td style="padding:12px 18px;border:2px dashed #E9DDF5;border-radius:10px;font-family:Courier New,Courier,monospace;font-size:20px;font-weight:bold;letter-spacing:3px;color:#ffffff;">MUM15</td></tr></table></td></tr>'
+            f'<tr><td style="padding:26px 40px 46px 40px;background-color:{G_PURPLE};" class="pad">{g_pill("Order a bouquet", "#ffffff", G_PURPLE)}</td></tr>'
+            + g_foot("Wild Stem Florist", "7 Market Lane", "#5E4686", "#ffffff", "#D9CCEA"))
+    return g_page("Hand-tied bouquets, 15% off", "Order by 2 May for Mother's Day delivery.", rows, G_BLUSH, G_PURPLE)
+
+
+def stem_wreath():
+    def size(name, price):
+        return (f'<td class="col" width="33%" valign="top" style="padding:0 6px 12px 6px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+                f'<td align="center" style="padding:22px 10px;background-color:#ffffff;border-radius:14px;">'
+                f'<div style="{DISPLAY}font-size:22px;color:{G_PURPLE};">{name}</div><div style="margin-top:6px;{SANS}font-size:15px;color:{G_MUTED};">{price}</div></td></tr></table></td>')
+    rows = (f'<tr><td style="padding:16px 40px;background-color:{G_MAUVE};{SANS}font-size:13px;font-weight:bold;letter-spacing:1px;color:#ffffff;" class="pad">Wild Stem Florist</td></tr>'
+            f'<tr><td style="padding:44px 40px 0 40px;{SANS}font-size:13px;letter-spacing:1px;color:{G_MAUVE};" class="pad">Back in stock</td></tr>'
+            f'<tr><td style="padding:14px 40px 0 40px;" class="pad"><div class="h1" style="{DISPLAY}font-size:48px;line-height:1.08;color:{G_INK};">Dried flower wreaths, made to order</div></td></tr>'
+            f'<tr><td style="padding:18px 40px 26px 40px;{SANS}font-size:17px;line-height:1.6;color:{G_MUTED};" class="pad">Three sizes, ready to collect in two days. Tell us your colours and we will do the rest.</td></tr>'
+            f'<tr><td style="padding:0 34px 8px 34px;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            + size("Small", "25 cm") + size("Medium", "35 cm") + size("Large", "45 cm")
             + f'</tr></table></td></tr>'
-            f'<tr><td style="padding:34px 32px 44px 32px;background-color:{N_BLACK};" class="pad">{n_btn("See the route")}</td></tr>'
-            f'<tr><td style="padding:34px 32px;background-color:{N_LIME};" class="pad">'
-            f'<div style="{IMPACT}font-size:30px;line-height:1.05;color:{N_BLACK};">BRING A FRIEND.<br>THEY RUN FREE.</div>'
-            f'<div style="margin-top:10px;{SANS}font-size:15px;line-height:1.5;color:{N_BLACK};">Guests are welcome at every Sunday run this month.</div></td></tr>')
-    return n_page("Race day is on", "Your place is saved. Everything you need for Sunday.", rows)
+            f'<tr><td style="padding:22px 40px 46px 40px;" class="pad">{g_pill("See the sizes", G_PURPLE, "#ffffff")}</td></tr>'
+            + g_foot("Wild Stem Florist", "7 Market Lane", G_MAUVE, "#ffffff", "#F3E4F2"))
+    return g_page("Dried flower wreaths, made to order", "Three sizes, ready to collect in two days.", rows, "#ffffff", G_BLUSH)
 
 
-def n_welcome():
-    def perk(n, title, text):
-        return (f'<tr><td style="padding:22px 32px;background-color:{N_BLACK};border-top:1px solid #2A2D22;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-                f'<td width="76" valign="top" style="{IMPACT}font-size:44px;line-height:1;color:{N_LIME};">{n}</td>'
-                f'<td valign="top"><div style="{IMPACT}font-size:20px;color:#ffffff;">{title}</div>'
-                f'<div style="margin-top:6px;{SANS}font-size:15px;line-height:1.55;color:#C4C8B8;">{text}</div></td></tr></table></td></tr>')
-    rows = (f'<tr><td style="padding:52px 32px 40px 32px;background-color:{N_LIME};" class="pad">'
-            f'<div class="big" style="{IMPACT}font-size:72px;line-height:.95;letter-spacing:-1px;color:{N_BLACK};">YOU&#39;RE<br>IN.</div>'
-            f'<div style="margin-top:18px;{SANS}font-size:18px;line-height:1.5;color:{N_BLACK};">Welcome to Northside, {{contactfield=firstname}}. Here is how the club works.</div></td></tr>'
-            + perk("01", "THREE RUNS A WEEK", "Tuesday track, Thursday tempo, Sunday long run. Come to one or all three.")
-            + perk("02", "EVERY PACE WELCOME", "Groups from walk-run to sub 40. Nobody gets left behind.")
-            + perk("03", "COFFEE AFTER", "We finish at the same cafe every Sunday. First one is on us.")
-            + f'<tr><td style="padding:34px 32px 46px 32px;background-color:{N_BLACK};border-top:1px solid #2A2D22;" class="pad">{n_btn("Pick your first run")}</td></tr>')
-    return n_page("Welcome to Northside", "You are in. Here is how the club works.", rows)
+def north_service():
+    def job(name, detail):
+        return (f'<tr><td style="padding:16px 0;border-top:1px solid #3D5CA8;{SANS}font-size:17px;font-weight:bold;color:#ffffff;">{name}</td>'
+                f'<td align="right" style="padding:16px 0;border-top:1px solid #3D5CA8;{SANS}font-size:15px;color:{G_SKY};">{detail}</td></tr>')
+    rows = (f'<tr><td style="background-color:{G_BLUE};"><div style="height:170px;overflow:hidden;text-align:right;">{g_circle(300, G_SKY, "-120px -80px 0 0")}</div></td></tr>'
+            f'<tr><td style="padding:0 40px;background-color:{G_BLUE};" class="pad"><span style="display:inline-block;padding:6px 14px;border:2px solid {G_SKY};border-radius:999px;{SANS}font-size:12px;font-weight:bold;color:{G_SKY};">Workshop</span></td></tr>'
+            f'<tr><td style="padding:20px 40px 0 40px;background-color:{G_BLUE};" class="pad"><div class="h1" style="{SANS}font-size:54px;font-weight:bold;line-height:1.03;letter-spacing:-1px;color:#ffffff;">Winter service week</div></td></tr>'
+            f'<tr><td style="padding:18px 40px 20px 40px;background-color:{G_BLUE};{SANS}font-size:17px;line-height:1.6;color:{G_SKY};" class="pad">{{contactfield=firstname}}, get your bike ready for the cold. Checked while you wait.</td></tr>'
+            f'<tr><td style="padding:0 40px 6px 40px;background-color:{G_BLUE};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
+            + job("Brakes", "Pads and cables") + job("Chain", "Cleaned and oiled") + job("Tyres", "Pressure and wear")
+            + f'</table></td></tr>'
+            f'<tr><td style="padding:26px 40px 48px 40px;background-color:{G_BLUE};" class="pad">{g_pill("Book a slot", G_SKY, G_NAVY)}</td></tr>'
+            + g_foot("Northbound Cycles", "2 Station Road", G_NAVY, "#ffffff", "#B9C9EC"))
+    return g_page("Winter service week", "Brakes, chain and tyres checked while you wait.", rows, G_SKY, G_BLUE)
 
 
-def n_plan():
-    def day(d, name, detail, hi=False):
-        bg = N_LIME if hi else N_GREY
-        fg = N_BLACK if hi else "#ffffff"
-        sub = N_BLACK if hi else "#C4C8B8"
-        return (f'<tr><td style="padding:0 32px 8px 32px;background-color:{N_BLACK};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-                f'<td style="padding:18px 20px;background-color:{bg};"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-                f'<td width="74" valign="middle" style="{IMPACT}font-size:20px;color:{fg};">{d}</td>'
-                f'<td valign="middle"><div style="{SANS}font-size:16px;font-weight:bold;color:{fg};">{name}</div>'
-                f'<div style="margin-top:3px;{SANS}font-size:14px;color:{sub};">{detail}</div></td></tr></table></td></tr></table></td></tr>')
-    rows = (f'<tr><td style="padding:46px 32px 26px 32px;background-color:{N_BLACK};" class="pad">'
-            f'<div style="{SANS}font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:{N_LIME};">This week</div>'
-            f'<div class="h1" style="margin-top:12px;{IMPACT}font-size:48px;line-height:1;letter-spacing:-1px;color:#ffffff;">YOUR PLAN,<br>{{contactfield=firstname}}.</div></td></tr>'
-            + day("TUE", "Track session", "6 x 800 m, steady. 6:30 pm at the stadium.")
-            + day("THU", "Tempo run", "30 minutes at a pace you can hold. 6:30 pm.")
-            + day("SUN", "Long run", "14 km along the canal. 8:00 am at the bridge.", hi=True)
-            + f'<tr><td style="padding:28px 32px 46px 32px;background-color:{N_BLACK};" class="pad">'
-              f'<div style="{SANS}font-size:15px;line-height:1.6;color:#C4C8B8;margin-bottom:24px;">Missed a session? Swap it for an easy 5 km. Showing up matters more than the splits.</div>{n_btn("Open the full plan")}</td></tr>')
-    return n_page("Your plan this week", "Three sessions, one long run.", rows)
+def north_stock():
+    def item(color, name, note):
+        return (f'<tr><td width="64" style="padding:14px 0;border-top:1px solid #E3E8F4;"><div style="width:44px;height:44px;border-radius:12px;background-color:{color};font-size:0;line-height:0;">&nbsp;</div></td>'
+                f'<td style="padding:14px 0;border-top:1px solid #E3E8F4;{SANS}"><div style="font-size:17px;font-weight:bold;color:{G_INK};">{name}</div>'
+                f'<div style="margin-top:3px;font-size:14px;color:{G_MUTED};">{note}</div></td></tr>')
+    rows = (f'<tr><td style="height:12px;line-height:12px;font-size:0;background-color:{G_BLUE};">&nbsp;</td></tr>'
+            f'<tr><td style="padding:40px 40px 0 40px;{SANS}font-size:13px;font-weight:bold;letter-spacing:1px;color:{G_BLUE};" class="pad">Northbound Cycles</td></tr>'
+            f'<tr><td style="padding:16px 40px 0 40px;" class="pad"><div class="h1" style="{SANS}font-size:56px;font-weight:bold;line-height:1;letter-spacing:-1.5px;color:{G_INK};">Back in stock</div>'
+            f'<div style="margin-top:22px;width:64px;height:5px;border-radius:3px;background-color:{G_BLUE};font-size:0;line-height:0;">&nbsp;</div></td></tr>'
+            f'<tr><td style="padding:22px 40px 10px 40px;{SANS}font-size:17px;line-height:1.6;color:{G_MUTED};" class="pad">The city helmets you asked about have arrived, {{contactfield=firstname}}. Three colours, all sizes.</td></tr>'
+            f'<tr><td style="padding:8px 40px 4px 40px;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
+            + item(G_BLUE, "Harbour blue", "Matte finish") + item(G_PINK, "Rose", "Gloss finish") + item(G_PURPLE, "Plum", "Matte finish")
+            + f'</table></td></tr>'
+            f'<tr><td style="padding:26px 40px 44px 40px;" class="pad">{g_pill("Shop helmets", G_BLUE, "#ffffff")}</td></tr>'
+            + g_foot("Northbound Cycles", "2 Station Road", G_SKY, G_INK, G_MUTED))
+    return g_page("Back in stock", "The city helmets you asked about have arrived.", rows, G_SKY, "#ffffff")
 
 
 TEMPLATES = {
     "launch": launch, "welcome": welcome, "sale": sale, "journal": journal,
-    "northside-race": n_race, "northside-welcome": n_welcome, "northside-plan": n_plan,
+    "kiln-class": kiln_class, "kiln-friday": kiln_friday,
+    "stem-bouquet": stem_bouquet, "stem-wreath": stem_wreath,
+    "north-service": north_service, "north-stock": north_stock,
 }
 
 if __name__ == "__main__":
