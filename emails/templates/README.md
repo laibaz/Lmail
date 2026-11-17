@@ -1,11 +1,17 @@
 # LMAIL showcase email templates
 
-Four campaign designs, shown with "Solenne", a made-up skincare brand:
+Seven complete emails for two made-up brands.
 
+**Solenne** (skincare, with photography)
 - `launch.html`: product launch with hero photo and product grid
 - `welcome.html`: welcome email with a discount code
 - `sale.html`: sale with before and after prices
 - `journal.html`: newsletter that walks through three steps
+
+**Northside Run Club** (bold type and colour, no photos)
+- `northside-race.html`: event reminder
+- `northside-welcome.html`: member welcome
+- `northside-plan.html`: weekly training plan
 
 They are built by `scripts/build-email-templates.py`. Each one stacks into a single column on
 phones and uses the Mautic tokens `{contactfield=firstname}` and `{unsubscribe_text}`.

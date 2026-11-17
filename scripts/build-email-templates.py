@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Builds the LMAIL showcase email templates into emails/templates/.
 
-The emails are for "Solenne", a made-up skincare brand, to show what a finished campaign
-looks like. They are table-based HTML with inline styles (what email apps need), stack into
+The emails are for made-up brands, to show what finished campaigns look like: "Solenne"
+(skincare, with photography) and "Northside Run Club" (bold type and colour, no photos). They are table-based HTML with inline styles (what email apps need), stack into
 one column on phones, and carry the Mautic tokens {contactfield=firstname} and {unsubscribe_text}.
 Images are served from the LMAIL website (web/public/email-assets/).
 
@@ -176,7 +176,117 @@ def journal():
     return page("The Journal", "Five minutes before bed is all it takes.", rows)
 
 
-TEMPLATES = {"launch": launch, "welcome": welcome, "sale": sale, "journal": journal}
+
+# ---------------------------------------------------------------------------
+# Northside Run Club: a made-up running club. Bold type and colour, no photos.
+# ---------------------------------------------------------------------------
+N_BLACK, N_LIME, N_GREY, N_PAPER, N_MUTED = "#0E0F0C", "#D7FF3D", "#1B1D17", "#F4F5EF", "#9BA08F"
+IMPACT = "font-family:'Arial Black',Impact,'Helvetica Neue',Arial,sans-serif;font-weight:900;"
+
+
+def n_btn(label, bg=N_LIME, fg=N_BLACK):
+    return (f'<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background-color:{bg};">'
+            f'<a href="https://" style="display:inline-block;padding:16px 30px;{SANS}font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:{fg};text-decoration:none;">{label} &rarr;</a>'
+            f'</td></tr></table>')
+
+
+def n_header():
+    return (f'<tr><td style="background-color:{N_BLACK};padding:22px 32px;border-bottom:1px solid #2A2D22;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            f'<td align="left" style="{IMPACT}font-size:20px;letter-spacing:1px;color:#ffffff;">NORTHSIDE<span style="color:{N_LIME};">/</span>RC</td>'
+            f'<td align="right" style="{SANS}font-size:11px;letter-spacing:2px;text-transform:uppercase;color:{N_MUTED};">Run club</td>'
+            f'</tr></table></td></tr>')
+
+
+def n_footer():
+    return (f'<tr><td style="background-color:{N_BLACK};padding:32px;border-top:1px solid #2A2D22;{SANS}" class="pad">'
+            f'<div style="{IMPACT}font-size:16px;letter-spacing:1px;color:#ffffff;">NORTHSIDE<span style="color:{N_LIME};">/</span>RC</div>'
+            f'<div style="margin-top:12px;font-size:12px;line-height:1.6;color:{N_MUTED};">Northside Run Club, 4 Canal Street<br>{{unsubscribe_text}}</div></td></tr>')
+
+
+def n_page(title, preheader, rows, bg=N_BLACK):
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+{HEAD}
+<title>{title}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#000000;">
+<div style="display:none;max-height:0;overflow:hidden;">{preheader}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#000000;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background-color:{bg};">
+{n_header()}
+{rows}
+{n_footer()}
+</table>
+</td></tr>
+</table>
+</body>
+</html>
+"""
+
+
+def n_race():
+    def fact(top, bottom):
+        return (f'<td class="col" width="33%" valign="top" style="padding:0 0 16px 0;">'
+                f'<div style="{SANS}font-size:11px;letter-spacing:2px;text-transform:uppercase;color:{N_MUTED};">{top}</div>'
+                f'<div style="margin-top:6px;{IMPACT}font-size:22px;color:#ffffff;">{bottom}</div></td>')
+    rows = (f'<tr><td style="padding:48px 32px 12px 32px;background-color:{N_BLACK};" class="pad">'
+            f'<div style="{SANS}font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:{N_LIME};">Sunday 10K</div>'
+            f'<div class="big" style="margin-top:14px;{IMPACT}font-size:88px;line-height:.92;letter-spacing:-2px;color:#ffffff;">RACE<br>DAY<br><span style="color:{N_LIME};">IS ON.</span></div></td></tr>'
+            f'<tr><td style="padding:22px 32px 30px 32px;background-color:{N_BLACK};{SANS}font-size:17px;line-height:1.6;color:#D6D9CC;" class="pad">'
+            f'{{contactfield=firstname}}, your place is saved. Here is everything you need for Sunday.</td></tr>'
+            f'<tr><td style="padding:26px 32px 10px 32px;background-color:{N_GREY};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            + fact("Start", "8:00 am") + fact("Meet", "Canal Bridge") + fact("Distance", "10 km")
+            + f'</tr></table></td></tr>'
+            f'<tr><td style="padding:34px 32px 44px 32px;background-color:{N_BLACK};" class="pad">{n_btn("See the route")}</td></tr>'
+            f'<tr><td style="padding:34px 32px;background-color:{N_LIME};" class="pad">'
+            f'<div style="{IMPACT}font-size:30px;line-height:1.05;color:{N_BLACK};">BRING A FRIEND.<br>THEY RUN FREE.</div>'
+            f'<div style="margin-top:10px;{SANS}font-size:15px;line-height:1.5;color:{N_BLACK};">Guests are welcome at every Sunday run this month.</div></td></tr>')
+    return n_page("Race day is on", "Your place is saved. Everything you need for Sunday.", rows)
+
+
+def n_welcome():
+    def perk(n, title, text):
+        return (f'<tr><td style="padding:22px 32px;background-color:{N_BLACK};border-top:1px solid #2A2D22;" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+                f'<td width="76" valign="top" style="{IMPACT}font-size:44px;line-height:1;color:{N_LIME};">{n}</td>'
+                f'<td valign="top"><div style="{IMPACT}font-size:20px;color:#ffffff;">{title}</div>'
+                f'<div style="margin-top:6px;{SANS}font-size:15px;line-height:1.55;color:#C4C8B8;">{text}</div></td></tr></table></td></tr>')
+    rows = (f'<tr><td style="padding:52px 32px 40px 32px;background-color:{N_LIME};" class="pad">'
+            f'<div class="big" style="{IMPACT}font-size:72px;line-height:.95;letter-spacing:-1px;color:{N_BLACK};">YOU&#39;RE<br>IN.</div>'
+            f'<div style="margin-top:18px;{SANS}font-size:18px;line-height:1.5;color:{N_BLACK};">Welcome to Northside, {{contactfield=firstname}}. Here is how the club works.</div></td></tr>'
+            + perk("01", "THREE RUNS A WEEK", "Tuesday track, Thursday tempo, Sunday long run. Come to one or all three.")
+            + perk("02", "EVERY PACE WELCOME", "Groups from walk-run to sub 40. Nobody gets left behind.")
+            + perk("03", "COFFEE AFTER", "We finish at the same cafe every Sunday. First one is on us.")
+            + f'<tr><td style="padding:34px 32px 46px 32px;background-color:{N_BLACK};border-top:1px solid #2A2D22;" class="pad">{n_btn("Pick your first run")}</td></tr>')
+    return n_page("Welcome to Northside", "You are in. Here is how the club works.", rows)
+
+
+def n_plan():
+    def day(d, name, detail, hi=False):
+        bg = N_LIME if hi else N_GREY
+        fg = N_BLACK if hi else "#ffffff"
+        sub = N_BLACK if hi else "#C4C8B8"
+        return (f'<tr><td style="padding:0 32px 8px 32px;background-color:{N_BLACK};" class="pad"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+                f'<td style="padding:18px 20px;background-color:{bg};"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+                f'<td width="74" valign="middle" style="{IMPACT}font-size:20px;color:{fg};">{d}</td>'
+                f'<td valign="middle"><div style="{SANS}font-size:16px;font-weight:bold;color:{fg};">{name}</div>'
+                f'<div style="margin-top:3px;{SANS}font-size:14px;color:{sub};">{detail}</div></td></tr></table></td></tr></table></td></tr>')
+    rows = (f'<tr><td style="padding:46px 32px 26px 32px;background-color:{N_BLACK};" class="pad">'
+            f'<div style="{SANS}font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:{N_LIME};">This week</div>'
+            f'<div class="h1" style="margin-top:12px;{IMPACT}font-size:48px;line-height:1;letter-spacing:-1px;color:#ffffff;">YOUR PLAN,<br>{{contactfield=firstname}}.</div></td></tr>'
+            + day("TUE", "Track session", "6 x 800 m, steady. 6:30 pm at the stadium.")
+            + day("THU", "Tempo run", "30 minutes at a pace you can hold. 6:30 pm.")
+            + day("SUN", "Long run", "14 km along the canal. 8:00 am at the bridge.", hi=True)
+            + f'<tr><td style="padding:28px 32px 46px 32px;background-color:{N_BLACK};" class="pad">'
+              f'<div style="{SANS}font-size:15px;line-height:1.6;color:#C4C8B8;margin-bottom:24px;">Missed a session? Swap it for an easy 5 km. Showing up matters more than the splits.</div>{n_btn("Open the full plan")}</td></tr>')
+    return n_page("Your plan this week", "Three sessions, one long run.", rows)
+
+
+TEMPLATES = {
+    "launch": launch, "welcome": welcome, "sale": sale, "journal": journal,
+    "northside-race": n_race, "northside-welcome": n_welcome, "northside-plan": n_plan,
+}
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)

@@ -5,9 +5,9 @@ import { Reveal } from "./Reveal";
 
 function Card({ title, text, href, linkLabel, children, delay = 0 }: { title: string; text: string; href?: string; linkLabel?: string; children: React.ReactNode; delay?: number }) {
   return (
-    <Reveal delay={delay} className="flex h-full flex-col">
+    <Reveal delay={delay} className="group flex h-full flex-col">
       <h3 className="text-[15px] font-semibold">{title}</h3>
-      <div className="mt-4 overflow-hidden rounded-2xl bg-soft">{children}</div>
+      <div className="mt-4 overflow-hidden rounded-2xl bg-soft transition-transform duration-300 group-hover:-translate-y-1">{children}</div>
       <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-muted">{text}</p>
       {href && (
         <Link href={href} className="mt-4 inline-flex w-fit items-center gap-1.5 border-b border-ink pb-0.5 text-[15px] font-medium text-ink transition-colors hover:border-blue hover:text-blue">
@@ -38,7 +38,7 @@ export function Explore() {
           <Card title="Templates ready to send" text="Launches, welcome offers, sales and newsletters. Pick one and make it yours." href="/templates" linkLabel="Browse templates" delay={0.08}>
             <div className="flex aspect-[4/3] items-start justify-center gap-5 overflow-hidden px-6 pt-8 sm:px-10 sm:pt-10">
               <Image src="/templates/launch.webp" alt="Product launch email template" width={1200} height={3890} sizes="240px" className="block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
-              <Image src="/templates/sale.webp" alt="Sale email template" width={1200} height={3054} sizes="240px" className="mt-8 block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
+              <Image src="/templates/northside-race.webp" alt="Event reminder email template" width={1200} height={1998} sizes="240px" className="mt-8 block h-auto w-[46%] rounded-t-lg shadow-[0_20px_50px_-25px_rgba(23,23,43,0.5)]" />
             </div>
           </Card>
         </div>

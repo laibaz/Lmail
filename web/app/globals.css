@@ -19,7 +19,17 @@ body { background: #ffffff; color: #17172B; -webkit-font-smoothing: antialiased;
   .h-section { @apply text-4xl font-normal leading-[1.08] tracking-tight md:text-5xl; }
 }
 
+/* Moving template wall */
+.gallery { mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 100%); }
+.gallery-col { overflow: hidden; }
+.gallery-track { animation: gallery-up linear infinite; will-change: transform; }
+.gallery-track-reverse { animation-name: gallery-down; }
+.gallery:hover .gallery-track { animation-play-state: paused; }
+@keyframes gallery-up { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+@keyframes gallery-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+
 @media (prefers-reduced-motion: reduce) {
+  .gallery-track { animation: none !important; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

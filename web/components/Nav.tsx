@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
 import { Logo } from "./Logo";
+import { ScrollBar } from "./ScrollBar";
 import { site } from "./site";
 
 const links = [
@@ -42,6 +43,7 @@ export function Nav() {
           </button>
         </div>
       </nav>
+      <ScrollBar />
       {open && (
         <ul className="px-5 pb-5 lg:hidden">
           {links.map(([label, href]) => (

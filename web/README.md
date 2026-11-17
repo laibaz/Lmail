@@ -21,6 +21,7 @@ npm run dev      # http://localhost:3000
 - `/` home, `/ai-writer`, `/templates`, `/how-it-works`, `/faq`, `/demo` (Calendly calendar)
 - Each page is a file in `app/<name>/page.tsx`; shared pieces are in `components/`
 - Founder photo: add a square image at `public/founder.jpg` and it replaces the initials on the home page
+- The moving gallery on the home page is `components/Gallery.tsx`; the list of templates is `components/templates.ts`
 - Email template previews in `public/templates/` come from `../emails/templates/` (built by `../scripts/build-email-templates.py`)
 
 ## Edit
